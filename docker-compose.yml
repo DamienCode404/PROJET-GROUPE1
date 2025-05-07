@@ -1,14 +1,14 @@
 services:
   backend:
     build:
-      context: ./refuge
+      context: ./RefugeBack
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/refuge
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/RefugeBack
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
 
