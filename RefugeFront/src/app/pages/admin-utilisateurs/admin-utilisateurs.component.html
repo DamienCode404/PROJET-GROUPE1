@@ -1,0 +1,116 @@
+@if (afficherForm)
+{
+  <form (ngSubmit)="addOrEditUtilisateurs()" [formGroup]="utilisateursForm">
+    <asc-text-field label="Type" formControlName="utilisateurType" />
+    <div *ngIf="utilisateursForm.get('utilisateurType')?.hasError('required')" class="alert alert-danger">
+      Le utilisateurType est obligatoire
+    </div>
+    
+    <asc-text-field label="Login" formControlName="login" />
+    <div *ngIf="utilisateursForm.get('login')?.hasError('required')" class="alert alert-danger">
+      Le login est obligatoire
+    </div>
+    
+    <asc-text-field label="Mot de passe" type="password" formControlName="password" />
+    <div *ngIf="utilisateursForm.get('password')?.hasError('required')" class="alert alert-danger">
+      Le mot de passe est obligatoire
+    </div>
+    
+    <asc-text-field label="Nom" formControlName="lastName" />
+    <div *ngIf="utilisateursForm.get('lastName')?.hasError('required')" class="alert alert-danger">
+      Le nom est obligatoire
+    </div>
+    
+    <asc-text-field label="Prénom" formControlName="firstName" />
+    <div *ngIf="utilisateursForm.get('firstName')?.hasError('required')" class="alert alert-danger">
+      Le prénom est obligatoire
+    </div>
+    
+    <asc-text-field label="Email" type="email" formControlName="email" />
+    <div *ngIf="utilisateursForm.get('email')?.hasError('required')" class="alert alert-danger">
+      L'email est obligatoire
+    </div>
+    <div *ngIf="utilisateursForm.get('email')?.hasError('email')" class="alert alert-danger">
+      Email invalide
+    </div>
+    
+    <asc-text-field label="Téléphone" formControlName="phoneNumber" />
+    <div *ngIf="utilisateursForm.get('phoneNumber')?.hasError('required')" class="alert alert-danger">
+      Le téléphone est obligatoire
+    </div>
+    
+    <div class="mb-3">
+      <label class="form-label">Tags</label>
+      <select multiple class="form-select" formControlName="tag">
+        <option *ngFor="let tag of tagsList" [value]="tag">{{ tag }}</option>
+      </select>
+    </div>
+    
+
+    <div class="mb-3">
+      <label class="form-label">Image</label>
+      <input formControlName="image" (change)="onImagePicked($event)" type="file" accept="image/*" class="form-control" />
+    </div>
+
+    @if (editingUtilisateurs) {
+      <input type="submit" [disabled]="utilisateursForm.invalid" class="btn btn-warning" value="Modifier" />
+    } @else {
+      <input type="submit" [disabled]="utilisateursForm.invalid" class="btn btn-success" value="Ajouter" />
+    }
+    <div class="btn btn-danger" (click)="this.afficherForm=false">Fermer le formulaire</div>
+  </form>
+}
+
+<hr />
+
+<div class="btn btn-success" (click)="this.afficherForm=true">Créer un nouvel utilisateur</div>
+
+<table class="table table-striped">
+<thead>
+    <tr>
+    <th>Type</th>
+    <th>Login</th>
+    <th>Password</th>
+    <th>Nom</th>
+    <th>Prénom</th>
+    <th>Email</th>
+    <th>Téléphone</th>
+    <th>tag</th>
+    <th>Image</th>
+    <th>Actions</th>
+    </tr>
+</thead>
+<tbody>
+    <tr *ngFor="let utilisateur of utilisateurs$ | async">
+    <td>{{ utilisateur.utilisateurType }}</td>
+    <td>{{ utilisateur.login }}</td>
+    <td>{{ utilisateur.password }}</td>
+    <td>{{ utilisateur.lastName }}</td>
+    <td>{{ utilisateur.firstName }}</td>
+    <td>{{ utilisateur.email }}</td>
+    <td>{{ utilisateur.phoneNumber }}</td>
+    <td>
+      <ng-container *ngFor="let tag of utilisateur.tag">
+        <span class="badge bg-primary me-1">{{ tag }}</span>
+      </ng-container>
+    </td>
+    <td>
+      <img
+      *ngIf="utilisateur.imageBase64"
+      [src]="'data:image/jpeg;base64,' + utilisateur.imageBase64"
+      class="card-img-top"
+      alt="{{ utilisateur.login }}"
+      style="height: 50px; width: 50px; object-fit: cover;"
+      />
+    </td>
+    <td>
+        <div class="btn-group">
+        <div class="btn btn-warning" (click)="editUtilisateurs(utilisateur)">Modifier</div>
+        <div class="btn btn-danger" (click)="deleteUtilisateurs(utilisateur)">Supprimer</div>
+        </div>
+    </td>
+    </tr>
+</tbody>
+</table>
+
+  

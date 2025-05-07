@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary position-relative" style="z-index: 2;">
+  <div class="container-fluid">
+    <a href="/">
+      <img src="logo-min.png" width="80" height="80" alt="Logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      
+      <div class="navbar-nav">
+        <a class="nav-link" [routerLink]="[ '/home' ]" routerLinkActive="active">Accueil</a>
+        @if (!role)
+        {
+          <a class="nav-link" [routerLink]="[ '/connexion' ]" routerLinkActive="active">Connexion</a>
+          <a class="nav-link" [routerLink]="[ '/inscription' ]" routerLinkActive="active">Inscription</a>
+        }
+        @else
+        {
+          @if (role == "ADMIN")
+          {
+            <a class="nav-link" [routerLink]="[ '/admin-animaux' ]" routerLinkActive="active">CRUD Animaux</a>
+            <a class="nav-link" [routerLink]="[ '/admin-boutique' ]" routerLinkActive="active">CRUD Boutique</a>
+            <a class="nav-link" [routerLink]="[ '/admin-utilisateurs' ]" routerLinkActive="active">CRUD Utilisateurs</a>
+          }
+          @if (role == "WORKER")
+          {
+            <a class="nav-link" [routerLink]="[ '/benevole-ajout' ]" routerLinkActive="active">Benevole Ajout</a>
+            <a class="nav-link" [routerLink]="[ '/benevole-profile' ]" routerLinkActive="active">Benevole Profile</a>
+          }
+          <a class="nav-link" [routerLink]="[ '/boutique' ]" routerLinkActive="active">Boutique</a>
+          <a class="nav-link" [routerLink]="[ '/panier' ]" routerLinkActive="active">Panier</a>
+        }
+
+        @if (role)
+        {
+          <!-- Déconnexion alignée à droite -->
+          <div class="navbar-nav ms-auto">
+            <a class="nav-link" [routerLink]="[ '/deconnexion' ]" routerLinkActive="active">Déconnexion</a>
+          </div>
+        }
+        
+
+      </div>
+    </div>
+  </div>
+</nav> 

@@ -1,0 +1,20 @@
+<form [formGroup]="searchForm" class="mb-3">
+  <div class="form-group mb-2">
+    <input
+      type="text"
+      class="form-control"
+      formControlName="search"
+      placeholder="Recherche par nom ou race..."
+    />
+  </div>
+
+  <div class="form-group">
+    <select class="form-select" formControlName="ageFilter">
+      <option value="">Tous les âges</option>
+      <option value="0-1">Moins de 1 an</option>
+      <option value="1-3">1 à 3 ans</option>
+      <option value="3-5">3 à 5 ans</option>
+      <option value="5+">5 ans et plus</option>
+    </select>
+  </div>
+</form>

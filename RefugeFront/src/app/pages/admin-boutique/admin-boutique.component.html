@@ -1,0 +1,72 @@
+@if (afficherForm)
+{
+    <form (ngSubmit)="addOrEditProduit()" [formGroup]="produitForm">
+        <asc-text-field label="Libellé" formControlName="libelle" />
+        <div *ngIf="produitForm.get('libelle')?.hasError('required')" class="alert alert-danger">
+            Le libellé est obligatoire
+        </div>
+        
+        <asc-text-field label="Description" formControlName="description" />
+        <div *ngIf="produitForm.get('description')?.hasError('required')" class="alert alert-danger">
+            La description est obligatoire
+        </div>
+        
+        <asc-text-field label="Prix" formControlName="prix" />
+        <div *ngIf="produitForm.get('prix')?.hasError('required')" class="alert alert-danger">
+            Le prix est obligatoire
+        </div>
+        <asc-text-field label="Stock" formControlName="stock" />
+        <div *ngIf="produitForm.get('stock')?.hasError('required')" class="alert alert-danger">
+            Le stock est obligatoire
+        </div>
+        
+        <input formControlName="image" (change)="onImagePicked($event)" type="file" accept="image/*" /> 
+        
+        <br/>
+
+        @if (editingProduit) {
+            <input type="submit" [disabled]="produitForm.invalid" class="btn btn-warning" value="Modifier" />
+        } @else {
+            <input type="submit" [disabled]="produitForm.invalid" class="btn btn-success" value="Ajouter" />
+        }
+        <div class="btn btn-danger" (click)="this.afficherForm=false">Fermer le formulaire</div>
+    </form>
+}
+
+<hr/>
+<div class="btn btn-success" (click)="this.afficherForm=true">Ajouter un nouveau produit</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Libellé</th>
+            <th>Description</th>
+            <th>Prix</th>
+            <th>Stock</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+
+        <tr *ngFor="let produit of produits$ | async">
+            <td>{{ produit.libelle }}</td>
+            <td>{{ produit.description }}</td>
+            <td>{{ produit.prix }} €</td>
+            <td>{{ produit.stock }}</td>
+            <td>
+                <img
+                *ngIf="produit.imageBase64"
+                [src]="'data:image/jpeg;base64,' + produit.imageBase64"
+                class="card-img-top"
+                alt="{{ produit.libelle }}"
+                style="height: 50px; width: 50px; object-fit: cover;"
+                />
+            </td>
+            <td>
+                <div class="btn-group">
+                    <div class="btn btn-warning" (click)="editProduit(produit)">Modifier</div>
+                    <div class="btn btn-danger" (click)="deleteProduit(produit)">Supprimer</div>
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>

@@ -1,0 +1,42 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Race</th>
+            <th>Date de naissance</th>
+            <th>Description</th>
+            <th>ID worker</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+
+        <tr *ngFor="let animal of animal$ | async">
+            <td>{{ animal.nom }}</td>
+            <td>{{ animal.race }}</td>
+            <td>{{ animal.naissance }}</td>
+            <td>{{ animal.description }}</td>
+            <td>{{ animal.idWorker }}</td>
+            <td>
+                <img
+                *ngIf="animal.imageBase64"
+                [src]="'data:image/jpeg;base64,' + animal.imageBase64"
+                class="card-img-top"
+                alt="{{ animal.nom }}"
+                style="height: 50px; width: 50px; object-fit: cover;"
+              />
+            </td>
+            <td>
+                <div class="btn-group">
+                    @if (id != animal.idWorker){
+                        @if (!animal.idWorker) {<div class="btn btn-success" (click)="ajouter(animal)">Ajouter à sa liste</div>}                        
+                        @else{<div class="btn btn-warning">Un autre Worker s'occuppe de l'animal</div>}
+                    }
+                    @else {
+                        <div class="btn btn-danger" (click)="retirer(animal)">Retirer de sa liste</div>
+                    }
+                    
+                </div>
+            </td>
+        </tr>
+    </thead>
+</table>
