@@ -1,0 +1,61 @@
+# ====== Node.js / Angular ======
+node_modules/
+dist/
+.angular/
+coverage/
+.env
+.env.local
+npm-debug.log
+yarn-error.log
+package-lock.json
+# Angular config backups
+*.bak
+*.orig
+# IDEs / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ====== Spring Boot / Java ======
+target/
+*.iml
+*.class
+*.log
+*.jar
+*.war
+*.ear
+*.db
+
+# Maven
+.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Gradle (si jamais tu switches un jour)
+.gradle/
+build/
+!gradle-wrapper.jar
+
+# Logs & temp files
+hs_err_pid*
+rebel.xml
+tmp/
+*.swp
+
+# ====== OS spécifiques ======
+*.DS_Store
+*.sw?
+
+# ====== Docker / Jenkins (optionnel si tu l'utilises) ======
+**/docker-compose.override.yml
+**/.env
+**/.dockerignore
+**/Dockerfile.*
+**/jenkins_home/
