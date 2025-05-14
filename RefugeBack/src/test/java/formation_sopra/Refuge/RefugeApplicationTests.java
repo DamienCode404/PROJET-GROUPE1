@@ -3,6 +3,7 @@ package formation_sopra.Refuge;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import formation_sopra.Refuge.dao.IDAOAnimal;
@@ -22,10 +23,14 @@ import formation_sopra.Refuge.model.Worker;
 @SpringBootTest
 class RefugeApplicationTests {
 
+	@Autowired
 	private IDAOAnimal daoAnimal;
+	@Autowired
 	private IDAOEspece daoEspece;
-    private IDAOProduit daoProduit;
-    private IDAOUtilisateur daoUtilisateur;
+	@Autowired
+	private IDAOProduit daoProduit;
+	@Autowired
+	private IDAOUtilisateur daoUtilisateur;
     
     @Test
     void testInsertAnimal() {
