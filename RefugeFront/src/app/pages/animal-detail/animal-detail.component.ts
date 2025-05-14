@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Animal } from '../admin-animaux/animal';
 import { AnimalService } from '../admin-animaux/animal.service';
+import { AuthService } from '../../auth.service';
 
 @Component({
   selector: 'app-animal-detail',
@@ -17,6 +18,7 @@ export class AnimalDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private service: AnimalService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,8 @@ export class AnimalDetailComponent {
   }
 
   public premierContact() {
-    this.animal.statut = "Reserve"
+    this.animal.statut = "PremierContact";
+    this.animal.idContact = this.authService.user.idUser;
     this.service.save(this.animal).subscribe(() => this.service.refresh());
   }
 }

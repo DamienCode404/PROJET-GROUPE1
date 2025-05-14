@@ -19,6 +19,7 @@ public class AnimalRequest {
 	private String statut;
 	private String tag;
 	private Integer idWorker;
+	private Integer idContact;
 	private String imageBase64;
 
 	public AnimalRequest() {
@@ -95,6 +96,14 @@ public class AnimalRequest {
 
 	public void setIdWorker(Integer idWorker) {
 		this.idWorker = idWorker;
+	}
+	
+	public Integer getIdContact() {
+		return idContact;
+	}
+
+	public void setIdContact(Integer idContact) {
+		this.idContact = idContact;
 	}
 
 	public static Animal convert(AnimalRequest animalRequest) {

@@ -68,6 +68,7 @@ public class AnimalRestController {
 		}
 
 		Animal animal = AnimalRequest.convert(animalRequest);
+		System.out.println(animal);
 
 		return this.animalService.update(animal);
 	}

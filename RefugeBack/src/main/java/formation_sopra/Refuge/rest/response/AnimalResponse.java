@@ -25,6 +25,8 @@ public class AnimalResponse {
 	@JsonView(Views.ViewAnimal.class)
 	private Integer idWorker;
 	@JsonView(Views.ViewAnimal.class)
+	private Integer idContact;
+	@JsonView(Views.ViewAnimal.class)
 	private String imageBase64;
 	@JsonView(Views.ViewAnimal.class)
 	private String statut;
@@ -99,6 +101,14 @@ public class AnimalResponse {
 		this.idWorker = idWorker;
 	}
 	
+	public Integer getIdContact() {
+		return idContact;
+	}
+
+	public void setIdContact(Integer idContact) {
+		this.idContact = idContact;
+	}
+
 	public String getImageBase64() {
 		return imageBase64;
 	}
