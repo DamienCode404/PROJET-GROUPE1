@@ -8,9 +8,9 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/RefugeBack
+      SPRING_DATASOURCE_URL: jdbc:mysql://4.233.149.159:3310/refuge
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_DATASOURCE_PASSWORD: Not24Get!
 
   frontend:
     build:
