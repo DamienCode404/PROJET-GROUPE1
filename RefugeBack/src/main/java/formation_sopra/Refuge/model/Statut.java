@@ -1,5 +1,5 @@
 package formation_sopra.Refuge.model;
 
 public enum Statut {
-	Disponible, Adopte, Reserve;
+	Disponible, PremierContact, Adopte, Reserve;
 }

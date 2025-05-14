@@ -38,6 +38,10 @@ public class Animal{
 	@JsonView(Views.ViewBasic.class)
 	private Statut statut;
 	
+	@JsonView(Views.ViewBasic.class)
+	@Column(name="id_contact")
+	private Integer idContact;
+	
 	@Enumerated(EnumType.STRING)
 	@JsonView(Views.ViewBasic.class)
 	private Tag tag;

@@ -1,5 +1,7 @@
 export class Animal {
 
+    public idContact!: number;
+
     constructor(
         private _id: number, 
         private _nom: string, 

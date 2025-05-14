@@ -37,6 +37,11 @@ export class UtilisateursService {
     );
   }
 
+  public findById(id: number): Observable<Utilisateurs> {
+      return this.http.get<Utilisateurs>(`${ this.API_URL }/${ id }`);
+    }
+
+
   public save(utilisateurs: any) {
     if (utilisateurs.id) {
       return this.http.put<Utilisateurs>(`${ this.API_URL }/${ utilisateurs.id }`, utilisateurs);

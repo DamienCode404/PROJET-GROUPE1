@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 import { Animal } from '../admin-animaux/animal';
 import { AnimalService } from '../admin-animaux/animal.service';
 import { AuthService } from '../../auth.service';
+import { UtilisateursService } from '../admin-utilisateurs/utilisateurs.service';
+import { Utilisateurs } from '../admin-utilisateurs/utilisateurs';
 
 @Component({
   selector: 'app-benevole-profile',
@@ -16,8 +18,11 @@ export class BenevoleProfileComponent implements OnInit {
   private _id:number;
   
   animal$!: Observable<Animal[]>;
+  animalContactes$!: Observable<Animal[]>;
+  user!:Utilisateurs;
+  contact = new Map();
 
-  constructor(private service: AnimalService, private authService: AuthService) {
+  constructor(private service: AnimalService, private authService: AuthService, private userService: UtilisateursService) {
     this._id = authService.user.idUser;
   }
 
@@ -25,6 +30,19 @@ export class BenevoleProfileComponent implements OnInit {
     this.animal$ = this.service.findAll().pipe(
       map(animal$ => animal$.filter(animal => animal.idWorker === this._id))
     );
+
+    this.animalContactes$ = this.service.findAll().pipe(
+      map(animalContactes$ => animalContactes$.filter(animal => (animal.idWorker === this._id) && animal.statut === "PremierContact"))
+    );
+
+    this.animalContactes$.subscribe(filteredAnimals => {
+      filteredAnimals.forEach(animal => {
+        this.userService.findById(animal.idContact).subscribe(user => this.user = user),
+        this.contact.set(animal, this.user)
+      })
+    });
+
+    
   }
 
   public get id()
