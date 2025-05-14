@@ -15,9 +15,11 @@ import { PanierComponent } from './pages/panier/panier.component';
 import { authGuard } from './auth.guard';
 import { BoutiqueDetailComponent } from './pages/boutique-detail/boutique-detail.component';
 import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.component';
+import { InfosComponent } from './pages/infos/infos.component';
 
 const routes: Routes = [
   { path: '', component: AccueilComponent },
+  { path: 'infos', component: InfosComponent },
   { path: 'home', component: AccueilComponent },
   { path: 'connexion', component: ConnexionComponent },
   { path: 'deconnexion', component: DeconnexionComponent },

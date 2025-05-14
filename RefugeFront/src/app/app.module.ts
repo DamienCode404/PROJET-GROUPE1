@@ -25,6 +25,7 @@ import { BoutiqueDetailComponent } from './pages/boutique-detail/boutique-detail
 import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.component';
 import { DeconnexionComponent } from './pages/deconnexion/deconnexion.component';
 import { SearchBarBoutiqueComponent } from './search-bar-boutique/search-bar-boutique.component';
+import { InfosComponent } from './pages/infos/infos.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { SearchBarBoutiqueComponent } from './search-bar-boutique/search-bar-bou
     BoutiqueDetailComponent,
       AnimalDetailComponent,
       DeconnexionComponent,
-      SearchBarBoutiqueComponent
+      SearchBarBoutiqueComponent,
+      InfosComponent
 
   ],
   imports: [
