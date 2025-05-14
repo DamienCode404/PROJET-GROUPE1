@@ -1,7 +1,9 @@
 
+
 <div *ngIf="produitAjoute" class="alert alert-success mt-3 fade show" role="alert">
   <strong>Succès !</strong> Le produit a bien été ajouté au panier.
 </div><div class="container mt-4">
+  <app-search-bar-boutique></app-search-bar-boutique>
   <div class="row row-cols-1 row-cols-md-3 g-4">
     <div class="col" *ngFor="let produit of produits$ | async">
       <div class="card h-100 shadow-sm">

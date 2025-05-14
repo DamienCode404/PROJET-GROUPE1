@@ -37,31 +37,23 @@ public abstract class Utilisateur{
 	protected String email;
 	@JsonView(Views.ViewBasic.class)
 	protected String phoneNumber;
+	@Enumerated(EnumType.STRING)
+	@JsonView(Views.ViewBasic.class)
+	private Tag tag;
 	@Lob
 	@JsonView(Views.ViewBasic.class)
 	private byte[] image;
 	
-	@Enumerated(EnumType.STRING)
-	@JsonView(Views.ViewBasic.class)
-	private Tag tag;
-	
-	public Tag getTag() {
-		return tag;
-	}
-
-	public void setTag(Tag tag) {
-		this.tag = tag;
-	}
-
 	public Utilisateur() {}
 	
-	public Utilisateur(String login, String password, String lastName, String firstName, String email, String phoneNumber) {
+	public Utilisateur(String login, String password, String lastName, String firstName, String email, String phoneNumber, Tag tag) {
 		this.login = login;
 		this.password = password;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
+		this.tag = tag;
 	}
 
 	public Integer getId() {
@@ -118,6 +110,14 @@ public abstract class Utilisateur{
 
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+	public Tag getTag() {
+		return tag;
+	}
+
+	public void setTag(Tag tag) {
+		this.tag = tag;
 	}
 	
 	public byte[] getImage() {

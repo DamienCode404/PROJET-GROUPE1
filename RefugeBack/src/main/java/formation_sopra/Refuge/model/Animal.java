@@ -48,12 +48,14 @@ public class Animal{
 	
 	public Animal() {}
 	
-	public Animal(String nom, String race, LocalDate naissance, String description, Integer idWorker) {
+	public Animal(String nom, String race, LocalDate naissance, String description, Integer idWorker, Statut statut, Tag tag) {
 		this.nom = nom;
 		this.race = race;
 		this.naissance = naissance;
 		this.description = description;
 		this.idWorker = idWorker;
+		this.statut = statut;
+		this.tag = tag;
 	}
 
 	public Integer getId() {
