@@ -125,7 +125,19 @@ public class AnimalRequest {
 			byte[] decode = Base64.getDecoder().decode(split);
 			animal.setImage(decode);
 		}
+		
+		
+		animal.setIdContact(animalRequest.getIdContact());
 
 		return animal;
 	}
+
+	@Override
+	public String toString() {
+		return "AnimalRequest [id=" + id + ", nom=" + nom + ", race=" + race + ", naissance=" + naissance
+				+ ", description=" + description + ", statut=" + statut + ", tag=" + tag + ", idWorker=" + idWorker
+				+ ", idContact=" + idContact + ", imageBase64=" + imageBase64 + "]";
+	}
+	
+	
 }
