@@ -35,7 +35,7 @@ export class AdminAnimauxComponent implements OnInit, OnDestroy {
       naissance: ['', Validators.required],
       description: ['', Validators.required],
       statut: ['', Validators.required],
-      imageBase64: ['', Validators.required]
+      imageBase64: ['']
     });
     
     this.animal$ = this.service.findAll();

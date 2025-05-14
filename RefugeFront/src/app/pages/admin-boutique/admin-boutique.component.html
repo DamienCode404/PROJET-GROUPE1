@@ -20,7 +20,7 @@
             Le stock est obligatoire
         </div>
         
-        <input formControlName="image" (change)="onImagePicked($event)" type="file" accept="image/*" /> 
+        <input (change)="onImagePicked($event)" type="file" accept="image/*" /> 
         
         <br/>
 
@@ -29,6 +29,7 @@
         } @else {
             <input type="submit" [disabled]="produitForm.invalid" class="btn btn-success" value="Ajouter" />
         }
+
         <div class="btn btn-danger" (click)="this.afficherForm=false">Fermer le formulaire</div>
     </form>
 }
@@ -70,3 +71,4 @@
         </tr>
     </thead>
 </table>
+

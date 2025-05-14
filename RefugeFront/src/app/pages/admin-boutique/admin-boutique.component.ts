@@ -27,18 +27,18 @@ export class AdminBoutiqueComponent implements OnInit, OnDestroy  {
     reader.onload = () => {
         this.produitForm.patchValue({ imageBase64: reader.result});
     };
-   
   }
+  
+
   ngOnInit(): void {
     this.produitForm = this.formBuilder.group({
-      libelle: this.formBuilder.control('', Validators.required),
-      description: this.formBuilder.control('', Validators.required),
-      prix: this.formBuilder.control('', Validators.required),
-      stock: this.formBuilder.control('', Validators.required),
-      imageBase64: this.formBuilder.control('', Validators.required)
-
+      libelle: ['', Validators.required],
+      description: ['', Validators.required],
+      prix: ['', Validators.required],
+      stock: ['', Validators.required],
+      imageBase64: [''] 
     });
-    
+
     this.produits$ = this.service.findAll();
   }
 
@@ -50,23 +50,21 @@ export class AdminBoutiqueComponent implements OnInit, OnDestroy  {
 
   public addOrEditProduit() {
     this.unsub('addOrEdit');
-
-    const produitData = {
+  
+    this.subscriptions['addOrEdit'] = this.service.save({
       id: this.editingProduit?.id,
       ...this.produitForm.value
-    };
-
-
-    this.subscriptions['addOrEdit'] = this.service.save(produitData).subscribe(() => {
-      this.service.refresh();
-      this.produitForm.reset();
+    }).subscribe(() => {
+      // recharge les données 
+      this.produits$ = this.service.findAll();
+  
       this.editingProduit = null;
+      this.produitForm.get('libelle')?.setValue('');
+      this.produitForm.get('description')?.setValue('');
+      this.produitForm.get('prix')?.setValue('');
+      this.produitForm.get('stock')?.setValue('');
+      this.afficherForm = false;
     });
-
-    this.editingProduit = null;
-    this.produitForm.get('libelle')?.setValue("");
-
-    this.afficherForm = false;
   }
 
   public editProduit(produit: Produit) {
@@ -75,7 +73,8 @@ export class AdminBoutiqueComponent implements OnInit, OnDestroy  {
     this.produitForm.get('description')?.setValue(produit.description);
     this.produitForm.get('prix')?.setValue(produit.prix);
     this.produitForm.get('stock')?.setValue(produit.stock);
-    
+    //this.produitForm.get('imageBase64')?.setValue(produit.imageBase64 || '');
+
     this.editingProduit = produit;
     
     this.afficherForm = true;
