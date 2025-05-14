@@ -26,10 +26,10 @@ export class BoutiqueComponent implements OnInit {
     this.produits$ = combineLatest([
       this.service.findAll(), // Récupère tous les produits depuis l'API
       this.searchBarBoutiqueService.search$.pipe(
-        startWith({ search: ''}) // Au début, aucun filtre appliqué
+        startWith({ search: '', priceFilter: ''}) // Au début, aucun filtre appliqué
       )
     ]).pipe(
-      map(([produits, { search}]) => {
+      map(([produits, { search, priceFilter}]) => {
         const term = (search || '').trim().toLowerCase(); // Nettoie le texte recherché
 
         // filtre le texte + l'âge 
@@ -37,8 +37,10 @@ export class BoutiqueComponent implements OnInit {
           const matchText = !term ||
             produit.libelle.toLowerCase().includes(term) ||
             produit.description.toLowerCase().includes(term);
+          const price = produit.prix; 
+          const matchPrice = this.matchPrice(price, priceFilter as string);
 
-          return matchText; // Retourne seulement le produit passe le filtre
+          return matchText&& matchPrice; // Retourne seulement le produit passe le filtre
         });
       })
     );
@@ -50,5 +52,19 @@ export class BoutiqueComponent implements OnInit {
     setTimeout(() => {
       this.produitAjoute = false;  
     }, 3000);
+  }
+
+  private matchPrice(price: number, filter: string): boolean {
+    switch (filter) {
+      case '0-15':
+        return price <= 15;
+      case '15-50':
+        return price >= 15 && price <= 50;
+      case '50+':
+        return price > 50;
+
+      default:
+        return true; // accepter tous les prix
+    }
   }
 }   

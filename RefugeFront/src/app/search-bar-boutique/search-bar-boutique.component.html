@@ -4,6 +4,17 @@
         type="text"
         class="form-control"
         formControlName="search"
-        placeholder="Recherche par nom du produit"
+        placeholder="Recherche par nom du produit..."
       />
     </div>
+
+    <div class="form-group">
+      <select class="form-select" formControlName="priceFilter">
+        <option value="">Tous les prix</option>
+        <option value="0-15">Moins de 15 €</option>
+        <option value="15-50">Entre 15 et 50 €</option>
+        <option value="50+">Plus de 50 €</option>
+      </select>
+    </div>
+
+</form>

@@ -19,6 +19,7 @@ export class SearchBarBoutiqueComponent implements OnInit {
     ngOnInit(): void {
       this.searchForm = this.fb.group({
         search: [''],
+        priceFilter: ['']
       });
   
       this.searchForm.valueChanges.pipe(
