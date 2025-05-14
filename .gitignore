@@ -26,6 +26,9 @@ target/
 *.war
 *.ear
 *.db
+*.classpath
+*.project
+.settings
 
 # Maven
 .mvn/
@@ -52,6 +55,7 @@ tmp/
 # ====== OS spécifiques ======
 *.DS_Store
 *.sw?
+*.metadata
 
 # ====== Docker / Jenkins (optionnel si tu l'utilises) ======
 **/docker-compose.override.yml

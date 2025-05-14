@@ -24,8 +24,8 @@ export class ConnexionComponent implements OnInit {
       this.router.navigate([ '/home' ]);
     }
 
-    this.loginCtrl = this.formBuilder.control('coucou_admin', Validators.required);
-    this.passwordCtrl = this.formBuilder.control('coucou', [ Validators.required, Validators.minLength(6) ]);
+    this.loginCtrl = this.formBuilder.control('admin', Validators.required);
+    this.passwordCtrl = this.formBuilder.control('123456', [ Validators.required, Validators.minLength(6) ]);
 
     // this.authForm = this.formBuilder.group({
     //   login: this.formBuilder.control('Valeur par défaut', Validators.required),
