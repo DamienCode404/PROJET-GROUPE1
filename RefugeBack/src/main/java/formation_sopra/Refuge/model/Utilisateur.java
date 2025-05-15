@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -25,6 +26,7 @@ public abstract class Utilisateur{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@JsonView(Views.ViewBasic.class)
 	protected Integer id;
+	@Column(unique = true)
 	@JsonView(Views.ViewBasic.class)
 	protected String login;
 	@JsonView(Views.ViewBasic.class)
