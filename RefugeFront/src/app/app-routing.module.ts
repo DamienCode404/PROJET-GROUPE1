@@ -18,7 +18,7 @@ import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.compo
 import { InfosComponent } from './pages/infos/infos.component';
 
 const routes: Routes = [
-  { path: '', component: AccueilComponent },
+  { path: '', component: InfosComponent },
   { path: 'infos', component: InfosComponent },
   { path: 'home', component: AccueilComponent },
   { path: 'connexion', component: ConnexionComponent },

@@ -68,13 +68,11 @@ public class AnimalRestController {
 		}
 
 		Animal animal = AnimalRequest.convert(animalRequest);
-		System.out.println(animal);
-
 		return this.animalService.update(animal);
 	}
 	
 	@DeleteMapping("/{id}")
-	@JsonView(Views.ViewAnimal.class)
+	@JsonView(Views.ViewAnimal.class) 
 	public void delete(@PathVariable Integer id) {
 		if (!this.animalService.existById(id)) {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Non trouvé");

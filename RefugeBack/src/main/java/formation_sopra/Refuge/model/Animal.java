@@ -124,11 +124,20 @@ public class Animal{
 	public void setIdWorker(Integer idWorker) {
 		this.idWorker = idWorker;
 	}
+	
+
+	public Integer getIdContact() {
+		return idContact;
+	}
+
+	public void setIdContact(Integer idContact) {
+		this.idContact = idContact;
+	}
 
 	@Override
 	public String toString() {
 		return "Animal [id=" + id + ", nom=" + nom + ", race=" + race + ", naissance=" + naissance + ", description="
-				+ description + ", idWorker=" + idWorker + ", statut=" + statut + ", tag=" + tag + ", image="
+				+ description + ", idWorker=" + idWorker + ", statut=" + statut + ", idContact = " + idWorker + ", tag=" + tag + ", image="
 				+ Arrays.toString(image) + "]";
 	}
 }

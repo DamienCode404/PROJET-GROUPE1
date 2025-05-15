@@ -42,6 +42,6 @@ export class ConnexionComponent implements OnInit {
     this.service.authenticate(new AuthRequest(this.authForm.value.login, this.authForm.value.password));
 
     // FIXME : Si l'auth échoue, on est quand même redirigé
-    setTimeout(() => {window.location.reload();(() => this.router.navigate([ '/home' ]))}, 500);
+    setTimeout(() => {window.location.reload();(() => this.router.navigate([ '/home' ]))}, 750);
   }
 }
