@@ -51,6 +51,9 @@ export class AdminUtilisateursComponent {
     'CompatibleAppartement',
     'LOF'
   ];
+
+  loginDejaPris: boolean = false;
+
   
   constructor(private service: UtilisateursService, private formBuilder: FormBuilder) {}
   
@@ -90,20 +93,32 @@ export class AdminUtilisateursComponent {
 
   public addOrEditUtilisateurs(): void {
     this.unsub('addOrEdit');
-
+  
     const utilisateurData = {
       id: this.editingUtilisateurs?.id,
       ...this.utilisateursForm.value
     };
-
-    this.subscriptions['addOrEdit'] = this.service.save(utilisateurData).subscribe(() => {
-      this.service.refresh();
-      this.utilisateursForm.reset();
-      this.editingUtilisateurs = null;
+  
+    this.loginDejaPris = false; // réinitialiser l’état
+  
+    this.subscriptions['addOrEdit'] = this.service.save(utilisateurData).subscribe({
+      next: () => {
+        this.service.refresh();
+        this.utilisateursForm.reset();
+        this.editingUtilisateurs = null;
+        this.afficherForm = false;
+      },
+      error: (err) => {
+        const message = err.error?.message;
+        if (err.status === 400 && message?.includes('login')) {
+          this.loginDejaPris = true;
+        } else {
+          alert('Login déja utilisé');
+        }
+      }
     });
-
-    this.afficherForm = false;
   }
+  
 
   public editUtilisateurs(utilisateur: Utilisateurs): void {
     this.utilisateursForm.patchValue({

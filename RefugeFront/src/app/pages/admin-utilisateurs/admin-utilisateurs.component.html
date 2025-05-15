@@ -18,6 +18,10 @@
     <div *ngIf="utilisateursForm.get('login')?.hasError('required')" class="alert alert-danger">
       Le login est obligatoire
     </div>
+
+    <div *ngIf="loginDejaPris" class="alert alert-danger">
+      Ce login est déjà utilisé.
+    </div>
     
     <asc-text-field label="Mot de passe" type="password" formControlName="password" />
     <div *ngIf="utilisateursForm.get('password')?.hasError('required')" class="alert alert-danger">
