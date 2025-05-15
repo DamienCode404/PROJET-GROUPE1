@@ -28,6 +28,8 @@ import { SearchBarBoutiqueComponent } from './search-bar-boutique/search-bar-bou
 import { InfosComponent } from './pages/infos/infos.component';
 import { AnimalDetailBenevoleComponent } from './pages/animal-detail-benevole/animal-detail-benevole.component';
 import { AdminAnimauxFormComponent } from './pages/admin-animaux-form/admin-animaux-form.component';
+import { AdminBoutiqueFormComponent } from './pages/admin-boutique-form/admin-boutique-form.component';
+import { AdminUtilisateursFormComponent } from './pages/admin-utilisateurs-form/admin-utilisateurs-form.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { AdminAnimauxFormComponent } from './pages/admin-animaux-form/admin-anim
       SearchBarBoutiqueComponent,
       InfosComponent,
       AnimalDetailBenevoleComponent,
-      AdminAnimauxFormComponent
+      AdminAnimauxFormComponent,
+      AdminBoutiqueFormComponent,
+      AdminUtilisateursFormComponent
 
   ],
   imports: [

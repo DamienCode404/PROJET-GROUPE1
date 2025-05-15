@@ -1,0 +1,47 @@
+
+<form (ngSubmit)="addOrEditProduit()" [formGroup]="produitForm">
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Libelle</span>
+        <input type="text" class="form-control" formControlName="libelle" [value]="editingProduit?.libelle" />
+    </div>
+    <div *ngIf="produitForm.get('libelle')?.hasError('required')" class="alert alert-danger">
+        Le libellé est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Description</span>
+        <input type="text" class="form-control" formControlName="description" [value]="editingProduit?.description" />
+    </div>
+    <div *ngIf="produitForm.get('description')?.hasError('required')" class="alert alert-danger">
+        La description est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Prix</span>
+        <input type="number" class="form-control" formControlName="prix" [value]="editingProduit?.prix" />
+    </div>
+    <div *ngIf="produitForm.get('prix')?.hasError('required')" class="alert alert-danger">
+        Le prix est obligatoire
+    </div>
+
+    <div class="input-group mb-3">
+        <span class="input-group-text">Stock</span>
+        <input type="number" class="form-control" formControlName="stock" [value]="editingProduit?.stock" />
+    </div>
+    <div *ngIf="produitForm.get('stock')?.hasError('required')" class="alert alert-danger">
+        Le stock est obligatoire
+    </div>
+    
+    <input (change)="onImagePicked($event)" type="file" accept="image/*" /> 
+    
+    <br/>
+    
+    @if (editingProduit) {
+        <input type="submit" [disabled]="produitForm.invalid" class="btn btn-warning" value="Modifier" />
+    } @else {
+        <input type="submit" [disabled]="produitForm.invalid" class="btn btn-success" value="Ajouter" />
+    }
+    
+     <input [routerLink]="['/admin-boutique']" class="btn btn-outline-primary mt-3" value="Retour à la liste de produits"/>
+</form>

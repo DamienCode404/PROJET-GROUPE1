@@ -1,41 +1,5 @@
-@if (afficherForm)
-{
-    <form (ngSubmit)="addOrEditProduit()" [formGroup]="produitForm">
-        <asc-text-field label="Libellé" formControlName="libelle" />
-        <div *ngIf="produitForm.get('libelle')?.hasError('required')" class="alert alert-danger">
-            Le libellé est obligatoire
-        </div>
-        
-        <asc-text-field label="Description" formControlName="description" />
-        <div *ngIf="produitForm.get('description')?.hasError('required')" class="alert alert-danger">
-            La description est obligatoire
-        </div>
-        
-        <asc-text-field label="Prix" formControlName="prix" />
-        <div *ngIf="produitForm.get('prix')?.hasError('required')" class="alert alert-danger">
-            Le prix est obligatoire
-        </div>
-        <asc-text-field label="Stock" formControlName="stock" />
-        <div *ngIf="produitForm.get('stock')?.hasError('required')" class="alert alert-danger">
-            Le stock est obligatoire
-        </div>
-        
-        <input (change)="onImagePicked($event)" type="file" accept="image/*" /> 
-        
-        <br/>
-
-        @if (editingProduit) {
-            <input type="submit" [disabled]="produitForm.invalid" class="btn btn-warning" value="Modifier" />
-        } @else {
-            <input type="submit" [disabled]="produitForm.invalid" class="btn btn-success" value="Ajouter" />
-        }
-
-        <div class="btn btn-danger" (click)="this.afficherForm=false">Fermer le formulaire</div>
-    </form>
-}
-
 <hr/>
-<div class="btn btn-success" (click)="this.afficherForm=true">Ajouter un nouveau produit</div>
+<a [routerLink]="['/admin-boutique-form/0']"><div class="btn btn-success">Ajouter un nouveau produit</div></a>
 
 <table class="table table-striped">
     <thead>
@@ -64,7 +28,7 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <div class="btn btn-warning" (click)="editProduit(produit)">Modifier</div>
+                    <a [routerLink]="['/admin-boutique-form', produit.id]" style="text-decoration: none"><div class="btn btn-warning" >Modifier</div></a>
                     <div class="btn btn-danger" (click)="deleteProduit(produit)">Supprimer</div>
                 </div>
             </td>
