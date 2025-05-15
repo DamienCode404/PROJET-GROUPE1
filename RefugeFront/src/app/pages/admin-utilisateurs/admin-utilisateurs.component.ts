@@ -66,7 +66,7 @@ export class AdminUtilisateursComponent {
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
       imageBase64: [''],
-      tag: ['', Validators.required]
+      tag: ['']
     });
 
     this.utilisateurs$ = this.service.findAll();

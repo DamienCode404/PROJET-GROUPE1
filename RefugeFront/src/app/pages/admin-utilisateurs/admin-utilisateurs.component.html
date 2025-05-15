@@ -39,17 +39,12 @@
       Le téléphone est obligatoire
     </div>
     
-    <div class="mb-3">
-      <label class="form-label">Tags</label>
-      <select multiple class="form-select" formControlName="tag">
-        <option *ngFor="let tag of tagsList" [value]="tag">{{ tag }}</option>
-      </select>
-    </div>
+
     
 
     <div class="mb-3">
       <label class="form-label">Image</label>
-      <input formControlName="image" (change)="onImagePicked($event)" type="file" accept="image/*" class="form-control" />
+      <input (change)="onImagePicked($event)" type="file" accept="image/*" class="form-control" />
     </div>
 
     @if (editingUtilisateurs) {
