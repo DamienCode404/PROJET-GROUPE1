@@ -15,33 +15,36 @@ export class ConnexionComponent implements OnInit {
   public authForm!: FormGroup;
   public loginCtrl!: FormControl;
   public passwordCtrl!: FormControl;
-
+  
   constructor(private service: AuthService, private router: Router, private formBuilder: FormBuilder) { }
-
+  
   ngOnInit(): void {
     if (this.service.user)
-    {
+      {
       this.router.navigate([ '/home' ]);
     }
-
+    
     this.loginCtrl = this.formBuilder.control('admin', Validators.required);
     this.passwordCtrl = this.formBuilder.control('123456', [ Validators.required, Validators.minLength(6) ]);
-
+    
     // this.authForm = this.formBuilder.group({
     //   login: this.formBuilder.control('Valeur par défaut', Validators.required),
     //   password: this.formBuilder.control('', [ Validators.required, Validators.minLength(6) ])
     // });
-
+    
     this.authForm = this.formBuilder.group({
       login: this.loginCtrl,
       password: this.passwordCtrl
     });
   }
-
-  public authenticate() {
-    this.service.authenticate(new AuthRequest(this.authForm.value.login, this.authForm.value.password));
-
-    // FIXME : Si l'auth échoue, on est quand même redirigé
-    setTimeout(() => {window.location.reload();(() => this.router.navigate([ '/home' ]))}, 750);
+  
+  public async authenticate() {
+    this.service.authenticate(new AuthRequest(
+    this.authForm.value.login,
+    this.authForm.value.password
+  )).subscribe({
+    next: () => this.router.navigate(['/home']),
+    error: err => console.error('Erreur de connexion', err)
+  });
   }
 }
