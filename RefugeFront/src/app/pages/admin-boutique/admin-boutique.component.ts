@@ -73,7 +73,6 @@ export class AdminBoutiqueComponent implements OnInit, OnDestroy  {
     this.produitForm.get('description')?.setValue(produit.description);
     this.produitForm.get('prix')?.setValue(produit.prix);
     this.produitForm.get('stock')?.setValue(produit.stock);
-    //this.produitForm.get('imageBase64')?.setValue(produit.imageBase64 || '');
 
     this.editingProduit = produit;
     

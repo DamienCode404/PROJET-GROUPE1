@@ -12,32 +12,16 @@ export class ProduitService{
   private API_URL: string = `${ environment.API_URL }/produit`;
   private _produits: Array<Produit> = new Array<Produit>();
 
-  constructor(private http: HttpClient) {
-    this.loadProduits();
-   }
-
-   
-   private loadProduits() {
-    this.findAll().subscribe({
-      next: (produits) => {
-        this._produits = produits;
-        console.log("Produits chargés :", this._produits);
-      },
-      error: (err) => {
-        console.error("Erreur lors du chargement des produits :", err);
-      }
-    });
-  }
+  constructor(private http: HttpClient) { }
 
   public refresh() {
     this.refresh$.next();
   }
+
   public findAll(): Observable<Produit[]> {
-    return this.http.get<Produit[]>(this.API_URL).pipe(
-      switchMap(produits => {
-        this._produits = produits; 
-        return of(produits);
-      })
+    return this.refresh$.pipe(
+      startWith(null),
+      switchMap(() => this.http.get<Produit[]>(this.API_URL))
     );
   }
 
