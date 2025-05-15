@@ -65,11 +65,13 @@ export class AdminUtilisateursComponent {
       firstName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phoneNumber: ['', Validators.required],
-      imageBase64: ['', Validators.required],
+      imageBase64: [''],
       tag: ['', Validators.required]
     });
 
     this.utilisateurs$ = this.service.findAll();
+    this.service.refresh();
+
   }
 
   ngOnDestroy(): void {
