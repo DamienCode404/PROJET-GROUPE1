@@ -17,6 +17,15 @@ export class AdminUtilisateursComponent {
   editingUtilisateurs!: Utilisateurs | null;
   subscriptions: any = [];
 
+
+   TypeUsers: string[] = [
+    'ADMIN',
+    'CLIENT',
+    'WORKER'
+  ];
+  
+
+
   // Liste de tous les tags disponibles
   tagsList: string[] = [
     'Calme',

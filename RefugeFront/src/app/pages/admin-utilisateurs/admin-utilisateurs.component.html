@@ -1,7 +1,15 @@
 @if (afficherForm)
 {
   <form (ngSubmit)="addOrEditUtilisateurs()" [formGroup]="utilisateursForm">
-    <asc-text-field label="Type" formControlName="utilisateurType" />
+
+    <div class="mb-3">
+      <label class="form-label">Type</label>
+      <select formControlName="utilisateurType" class="form-select">
+        <option value="">-- Sélectionner un type --</option>
+        <option *ngFor="let type of TypeUsers" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
     <div *ngIf="utilisateursForm.get('utilisateurType')?.hasError('required')" class="alert alert-danger">
       Le utilisateurType est obligatoire
     </div>
@@ -46,6 +54,15 @@
       <label class="form-label">Image</label>
       <input (change)="onImagePicked($event)" type="file" accept="image/*" class="form-control" />
     </div>
+
+    <div class="mb-3">
+      <label class="form-label">Tag</label>
+      <select formControlName="tag" class="form-select">
+        <option value="">-- Sélectionner un tag --</option>
+        <option *ngFor="let tag of tagsList" [value]="tag">{{ tag }}</option>
+      </select>
+    </div>
+
 
     @if (editingUtilisateurs) {
       <input type="submit" [disabled]="utilisateursForm.invalid" class="btn btn-warning" value="Modifier" />
