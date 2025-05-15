@@ -19,23 +19,21 @@ export class BenevoleProfileComponent implements OnInit {
   
   animal$!: Observable<Animal[]>;
   animalContactes$!: Observable<Animal[]>;
-  contacts$!: Observable<Utilisateurs[]>;
   
-  constructor(private service: AnimalService, private authService: AuthService, private userService: UtilisateursService) {
+  constructor(private service: AnimalService, private authService: AuthService) {
     this._id = authService.user.idUser;
   }
   
   ngOnInit(): void {
-    this.animal$ = this.service.findAll().pipe(
-      map(animal$ => animal$.filter(animal => animal.idWorker === this._id))
-    );
+    this.service.findAll().subscribe(animals => {
+      const filteredAnimals = animals.filter(animal => animal.idWorker === this._id);
+      
+      this.animal$ = of(filteredAnimals);
+      this.animalContactes$ = of(
+        filteredAnimals.filter(animal => animal.statut === "PremierContact")
+      );
+    });
     
-    this.animalContactes$ = this.service.findAll().pipe(
-      map(animalContactes$ => animalContactes$.filter(animal => (animal.idWorker === this._id) && animal.statut === "PremierContact"))
-    );
-    
-    this.contacts$ = this.userService.findAll();
-
   };
   
   

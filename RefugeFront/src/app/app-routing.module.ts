@@ -16,6 +16,7 @@ import { authGuard } from './auth.guard';
 import { BoutiqueDetailComponent } from './pages/boutique-detail/boutique-detail.component';
 import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.component';
 import { InfosComponent } from './pages/infos/infos.component';
+import { AnimalDetailBenevoleComponent } from './pages/animal-detail-benevole/animal-detail-benevole.component';
 
 const routes: Routes = [
   { path: '', component: InfosComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: 'admin-utilisateurs', component: AdminUtilisateursComponent, canActivate: [ authGuard ] },
   { path: 'benevole-ajout', component: BenevoleAjoutComponent },
   { path: 'benevole-profile', component: BenevoleProfileComponent },
+  { path: 'benevole/:id', component: AnimalDetailBenevoleComponent },
   { path: 'boutique', component: BoutiqueComponent },
   { path: 'inscription', component: InscriptionComponent },
   { path: 'panier', component: PanierComponent },
