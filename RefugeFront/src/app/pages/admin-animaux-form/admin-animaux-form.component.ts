@@ -24,17 +24,8 @@ export class AdminAnimauxFormComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.route.params.subscribe(params => {
-
+      
       const id = params['id'];
-      
-      if (id==0) {return}
-      
-      this.service.findById(id).subscribe({
-        next: animal => {
-          this.editingAnimal = animal;},
-          error: () => this.editingAnimal = null
-        });
-      });
 
       this.animalForm = this.formBuilder.group({
         nom: ['', Validators.required],
@@ -43,6 +34,21 @@ export class AdminAnimauxFormComponent implements OnInit, OnDestroy {
         description: ['', Validators.required],
         statut: ['', Validators.required],
         imageBase64: ['']
+      });
+
+      if (id==0) {return}
+      
+      this.service.findById(id).subscribe({
+        next: animal => {
+          this.editingAnimal = animal;
+          this.animalForm.get('nom')?.setValue(animal.nom);
+          this.animalForm.get('description')?.setValue(animal.description);
+          this.animalForm.get('race')?.setValue(animal.race);
+          this.animalForm.get('naissance')?.setValue(animal.naissance);
+          this.animalForm.get('imageBase64')?.setValue(animal.imageBase64);
+          this.animalForm.get('statut')?.setValue(animal.statut);},
+          error: () => this.editingAnimal = null
+        });
       });
       
     }
