@@ -1,8 +1,6 @@
 services:
   backend:
-    build:
-      context: ./RefugeBack
-      dockerfile: Dockerfile
+    image: alexandrevlt/projetrefuge:refugeBack
     ports:
       - "8080:8080"
     depends_on:

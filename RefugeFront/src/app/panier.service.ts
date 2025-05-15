@@ -55,7 +55,8 @@ export class PanierService {
     }
   }
   get total(): number {
-    return this._articles.reduce((sum, article) => sum + article.prix, 0);
+    const sum = this._articles.reduce((sum, article) => sum + article.prix, 0);
+    return parseFloat(sum.toFixed(2));
   }
 
   viderPanier() {
