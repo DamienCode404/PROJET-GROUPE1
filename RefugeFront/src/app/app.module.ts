@@ -27,6 +27,7 @@ import { DeconnexionComponent } from './pages/deconnexion/deconnexion.component'
 import { SearchBarBoutiqueComponent } from './search-bar-boutique/search-bar-boutique.component';
 import { InfosComponent } from './pages/infos/infos.component';
 import { AnimalDetailBenevoleComponent } from './pages/animal-detail-benevole/animal-detail-benevole.component';
+import { AdminAnimauxFormComponent } from './pages/admin-animaux-form/admin-animaux-form.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { AnimalDetailBenevoleComponent } from './pages/animal-detail-benevole/an
       DeconnexionComponent,
       SearchBarBoutiqueComponent,
       InfosComponent,
-      AnimalDetailBenevoleComponent
+      AnimalDetailBenevoleComponent,
+      AdminAnimauxFormComponent
 
   ],
   imports: [
