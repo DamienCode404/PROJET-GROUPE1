@@ -68,20 +68,21 @@
 <table class="table table-striped">
 <thead>
     <tr>
-    <th>Type</th>
-    <th>Login</th>
-    <th>Password</th>
-    <th>Nom</th>
-    <th>Prénom</th>
-    <th>Email</th>
-    <th>Téléphone</th>
-    <th>tag</th>
-    <th>Image</th>
-    <th>Actions</th>
+      <th>Type</th>
+      <th>Login</th>
+      <th>Password</th>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Téléphone</th>
+      <th>tag</th>
+      <th>Image</th>
+      <th>Actions</th>
+      <th></th>
     </tr>
-</thead>
-<tbody>
-    <tr *ngFor="let utilisateur of utilisateurs$ | async">
+
+
+<tr *ngFor="let utilisateur of utilisateurs$ | async">
     <td>{{ utilisateur.utilisateurType }}</td>
     <td>{{ utilisateur.login }}</td>
     <td>{{ utilisateur.password }}</td>
@@ -89,11 +90,9 @@
     <td>{{ utilisateur.firstName }}</td>
     <td>{{ utilisateur.email }}</td>
     <td>{{ utilisateur.phoneNumber }}</td>
-    <td>
-      <ng-container *ngFor="let tag of utilisateur.tag">
-        <span class="badge bg-primary me-1">{{ tag }}</span>
-      </ng-container>
-    </td>
+    <td>{{ utilisateur.tag }}</td>
+    
+
     <td>
       <img
       *ngIf="utilisateur.imageBase64"
@@ -105,12 +104,12 @@
     </td>
     <td>
         <div class="btn-group">
-        <div class="btn btn-warning" (click)="editUtilisateurs(utilisateur)">Modifier</div>
-        <div class="btn btn-danger" (click)="deleteUtilisateurs(utilisateur)">Supprimer</div>
+           <div class="btn btn-warning" (click)="editUtilisateurs(utilisateur)">Modifier</div>
+           <div class="btn btn-danger" (click)="deleteUtilisateurs(utilisateur)">Supprimer</div>
         </div>
     </td>
     </tr>
-</tbody>
+</thead>
 </table>
 
   
