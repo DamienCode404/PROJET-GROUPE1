@@ -1,85 +1,6 @@
-@if (afficherForm)
-{
-  <form (ngSubmit)="addOrEditUtilisateurs()" [formGroup]="utilisateursForm">
-
-    <div class="mb-3">
-      <label class="form-label">Type</label>
-      <select formControlName="utilisateurType" class="form-select">
-        <option value="">-- Sélectionner un type --</option>
-        <option *ngFor="let type of TypeUsers" [value]="type">{{ type }}</option>
-      </select>
-    </div>
-
-    <div *ngIf="utilisateursForm.get('utilisateurType')?.hasError('required')" class="alert alert-danger">
-      Le utilisateurType est obligatoire
-    </div>
-    
-    <asc-text-field label="Login" formControlName="login" />
-    <div *ngIf="utilisateursForm.get('login')?.hasError('required')" class="alert alert-danger">
-      Le login est obligatoire
-    </div>
-
-    <div *ngIf="loginDejaPris" class="alert alert-danger">
-      Ce login est déjà utilisé.
-    </div>
-    
-    <asc-text-field label="Mot de passe" type="password" formControlName="password" />
-    <div *ngIf="utilisateursForm.get('password')?.hasError('required')" class="alert alert-danger">
-      Le mot de passe est obligatoire
-    </div>
-    
-    <asc-text-field label="Nom" formControlName="lastName" />
-    <div *ngIf="utilisateursForm.get('lastName')?.hasError('required')" class="alert alert-danger">
-      Le nom est obligatoire
-    </div>
-    
-    <asc-text-field label="Prénom" formControlName="firstName" />
-    <div *ngIf="utilisateursForm.get('firstName')?.hasError('required')" class="alert alert-danger">
-      Le prénom est obligatoire
-    </div>
-    
-    <asc-text-field label="Email" type="email" formControlName="email" />
-    <div *ngIf="utilisateursForm.get('email')?.hasError('required')" class="alert alert-danger">
-      L'email est obligatoire
-    </div>
-    <div *ngIf="utilisateursForm.get('email')?.hasError('email')" class="alert alert-danger">
-      Email invalide
-    </div>
-    
-    <asc-text-field label="Téléphone" formControlName="phoneNumber" />
-    <div *ngIf="utilisateursForm.get('phoneNumber')?.hasError('required')" class="alert alert-danger">
-      Le téléphone est obligatoire
-    </div>
-    
-
-    
-
-    <div class="mb-3">
-      <label class="form-label">Image</label>
-      <input (change)="onImagePicked($event)" type="file" accept="image/*" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Tag</label>
-      <select formControlName="tag" class="form-select">
-        <option value="">-- Sélectionner un tag --</option>
-        <option *ngFor="let tag of tagsList" [value]="tag">{{ tag }}</option>
-      </select>
-    </div>
-
-
-    @if (editingUtilisateurs) {
-      <input type="submit" [disabled]="utilisateursForm.invalid" class="btn btn-warning" value="Modifier" />
-    } @else {
-      <input type="submit" [disabled]="utilisateursForm.invalid" class="btn btn-success" value="Ajouter" />
-    }
-    <div class="btn btn-danger" (click)="this.afficherForm=false">Fermer le formulaire</div>
-  </form>
-}
-
 <hr />
 
-<div class="btn btn-success" (click)="this.afficherForm=true">Créer un nouvel utilisateur</div>
+<a [routerLink]="['/admin-utilisateurs-form/0']"><div class="btn btn-success">Créer un nouvel utilisateur</div></a>
 
 <table class="table table-striped">
 <thead>
@@ -120,7 +41,7 @@
     </td>
     <td>
         <div class="btn-group">
-           <div class="btn btn-warning" (click)="editUtilisateurs(utilisateur)">Modifier</div>
+           <a [routerLink]="['/admin-utilisateurs-form', utilisateur.id]" style="text-decoration: none"><div class="btn btn-warning" >Modifier</div></a>
            <div class="btn btn-danger" (click)="deleteUtilisateurs(utilisateur)">Supprimer</div>
         </div>
     </td>

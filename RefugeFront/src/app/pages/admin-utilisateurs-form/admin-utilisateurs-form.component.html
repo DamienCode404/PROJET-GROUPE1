@@ -1,0 +1,91 @@
+
+<form (ngSubmit)="addOrEditUtilisateurs()" [formGroup]="utilisateursForm">
+    
+    <div class="mb-3">
+        <label class="form-label">Type</label>
+        <select formControlName="utilisateurType" class="form-select">
+            <option value="">-- Sélectionner un type --</option>
+            <option *ngFor="let type of TypeUsers" [value]="type">{{ type }}</option>
+        </select>
+    </div>
+    
+    <div *ngIf="utilisateursForm.get('utilisateurType')?.hasError('required')" class="alert alert-danger">
+        Le utilisateurType est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Login</span>
+        <input type="text" class="form-control" formControlName="login" [value]="editingUtilisateurs?.login" />
+    </div>
+    
+    <div *ngIf="utilisateursForm.get('login')?.hasError('required')" class="alert alert-danger">
+        Le login est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Mot de passe</span>
+        <input type="text" class="form-control" formControlName="password" [value]="editingUtilisateurs?.password" />
+    </div>
+    
+    <div *ngIf="utilisateursForm.get('password')?.hasError('required')" class="alert alert-danger">
+        Le mot de passe est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Prénom</span>
+        <input type="text" class="form-control" formControlName="firstName" [value]="editingUtilisateurs?.firstName" />
+    </div>
+    <div *ngIf="utilisateursForm.get('firstName')?.hasError('required')" class="alert alert-danger">
+        Le prénom est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Nom de famille</span>
+        <input type="text" class="form-control" formControlName="lastName" [value]="editingUtilisateurs?.lastName" />
+    </div>
+    
+    <div *ngIf="utilisateursForm.get('lastName')?.hasError('required')" class="alert alert-danger">
+        Le nom de famille est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Email</span>
+        <input type="email" class="form-control" formControlName="email" [value]="editingUtilisateurs?.email" />
+    </div>
+    <div *ngIf="utilisateursForm.get('email')?.hasError('required')" class="alert alert-danger">
+        L'email est obligatoire
+    </div>
+    <div *ngIf="utilisateursForm.get('email')?.hasError('email')" class="alert alert-danger">
+        Email invalide
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Numéro de téléphone</span>
+        <input type="text" class="form-control" formControlName="phoneNumber" [value]="editingUtilisateurs?.phoneNumber" />
+    </div>
+    <div *ngIf="utilisateursForm.get('phoneNumber')?.hasError('required')" class="alert alert-danger">
+        Le numéro de téléphone est obligatoire
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Image</label>
+        <input (change)="onImagePicked($event)" type="file" accept="image/*" class="form-control" />
+    </div>
+    
+    <div class="mb-3">
+        <label class="form-label">Tag</label>
+        <select formControlName="tag" class="form-select">
+            <option value="">-- Sélectionner un tag --</option>
+            <option *ngFor="let tag of tagsList" [value]="tag">{{ tag }}</option>
+        </select>
+    </div>
+    
+    
+    @if (editingUtilisateurs) {
+        <input type="submit" [disabled]="utilisateursForm.invalid" class="btn btn-warning" value="Modifier" />
+    } @else {
+        <input type="submit" [disabled]="utilisateursForm.invalid" class="btn btn-success" value="Ajouter" />
+    }
+
+    <input [routerLink]="['/admin-utilisateurs']" class="btn btn-outline-primary mt-3" value="Retour à la liste d'utilisateurs"/>
+</form>
