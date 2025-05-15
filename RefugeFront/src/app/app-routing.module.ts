@@ -17,6 +17,7 @@ import { BoutiqueDetailComponent } from './pages/boutique-detail/boutique-detail
 import { AnimalDetailComponent } from './pages/animal-detail/animal-detail.component';
 import { InfosComponent } from './pages/infos/infos.component';
 import { AnimalDetailBenevoleComponent } from './pages/animal-detail-benevole/animal-detail-benevole.component';
+import { AdminAnimauxFormComponent } from './pages/admin-animaux-form/admin-animaux-form.component';
 
 const routes: Routes = [
   { path: '', component: InfosComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'connexion', component: ConnexionComponent },
   { path: 'deconnexion', component: DeconnexionComponent },
   { path: 'admin-animaux', component: AdminAnimauxComponent },
+  { path: 'admin-animaux-form/:id', component: AdminAnimauxFormComponent },
   { path: 'admin-boutique', component: AdminBoutiqueComponent },
   { path: 'admin-utilisateurs', component: AdminUtilisateursComponent, canActivate: [ authGuard ] },
   { path: 'benevole-ajout', component: BenevoleAjoutComponent },

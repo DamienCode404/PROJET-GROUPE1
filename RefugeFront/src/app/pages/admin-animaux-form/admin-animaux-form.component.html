@@ -1,0 +1,62 @@
+<form (ngSubmit)="addOrEditAnimal()" [formGroup]="animalForm">
+    <div class="input-group mb-3">
+        <span class="input-group-text">Nom</span>
+        <input type="text" class="form-control" formControlName="nom" [value]="editingAnimal?.nom" />
+    </div>
+    
+    <div *ngIf="animalForm.get('nom')?.hasError('required')" class="alert alert-danger">
+        Le nom est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Race</span>
+        <input type="text" class="form-control" formControlName="race" [value]="editingAnimal?.race" />
+    </div>
+    
+    <div *ngIf="animalForm.get('race')?.hasError('required')" class="alert alert-danger">
+        La race est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Date de naissance</span>
+        <input type="date" class="form-control" formControlName="naissance" [value]="editingAnimal?.naissance" />
+    </div>
+    
+    <div *ngIf="animalForm.get('naissance')?.hasError('required')" class="alert alert-danger">
+        La date de naissance est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Description</span>
+        <input type="text" class="form-control" formControlName="description" [value]="editingAnimal?.description" />
+    </div>
+    
+    <div *ngIf="animalForm.get('description')?.hasError('required')" class="alert alert-danger">
+        La description est obligatoire
+    </div>
+    
+    <div class="input-group mb-3">
+        <span class="input-group-text">Statut</span>
+        <select class="form-control" formControlName="statut">
+            <option [selected]="editingAnimal?.statut=='Disponible'" value="Disponible">Disponible</option>
+            <option [selected]="editingAnimal?.statut=='Reserve'" value="Reserve">Réservé</option>
+            <option [selected]="editingAnimal?.statut=='Adopte'" value="Adopte">Adopté</option>
+        </select>
+    </div>
+    
+    <div>
+        <input (change)="onImagePicked($event)" type="file" accept="image/*" /> 
+    </div>
+    
+    
+    @if (editingAnimal) {
+        <input type="submit" [disabled]="animalForm.invalid" class="btn btn-warning" value="Modifier" />
+    }
+    
+    @else {
+        <input type="submit" [disabled]="animalForm.invalid" class="btn btn-success" value="Ajouter" />
+    }
+    
+    <input [routerLink]="['/admin-animaux']" class="btn btn-outline-primary mt-3" value="Retour à la liste d'animaux"/>
+    
+</form>

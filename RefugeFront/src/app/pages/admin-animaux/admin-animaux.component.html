@@ -1,61 +1,6 @@
-@if (afficherForm)
-{
-    <form (ngSubmit)="addOrEditAnimal()" [formGroup]="animalForm">
-        <asc-text-field label="Nom" formControlName="nom" />
-        
-        <div *ngIf="animalForm.get('nom')?.hasError('required')" class="alert alert-danger">
-            Le nom est obligatoire
-        </div>
-        
-        <asc-text-field label="Race" formControlName="race" />
-        
-        <div *ngIf="animalForm.get('race')?.hasError('required')" class="alert alert-danger">
-            La race est obligatoire
-        </div>
-        
-        <div class="input-group mb-3">
-            <span class="input-group-text">Date de naissance</span>
-            <input type="date" class="form-control" formControlName="naissance" [value]="editingAnimal?.naissance" />
-        </div>
-        
-        <div *ngIf="animalForm.get('naissance')?.hasError('required')" class="alert alert-danger">
-            La date de naissance est obligatoire
-        </div>
-        
-        <asc-text-field label="Description" formControlName="description" />
-        
-        <div *ngIf="animalForm.get('description')?.hasError('required')" class="alert alert-danger">
-            La description est obligatoire
-        </div>
-
-        <div class="input-group mb-3">
-            <span class="input-group-text">Statut</span>
-            <select class="form-control" formControlName="statut">
-                <option value="Disponible">Disponible</option>
-                <option value="Reserve">Réservé</option>
-                <option value="Adopte">Adopté</option>
-            </select>
-        </div>
-        
-        <div>
-            <input (change)="onImagePicked($event)" type="file" accept="image/*" /> 
-        </div>
-        
-
-        @if (editingAnimal) {
-            <input type="submit" [disabled]="animalForm.invalid" class="btn btn-warning" value="Modifier" />
-        }
-        
-        @else {
-            <input type="submit" [disabled]="animalForm.invalid" class="btn btn-success" value="Ajouter" />
-        }
-        <div class="btn btn-danger" (click)="afficherForm=false">Fermer le formulaire</div>
-    </form>
-}
-
 <hr/>
 
-<div class="btn btn-success" (click)="afficherForm=true">Ajouter un nouvel animal</div>
+<a [routerLink]="['/admin-animaux-form/0']"><div class="btn btn-success" >Ajouter un nouvel animal</div></a>
 
 <table class="table table-striped">
     <thead>
@@ -88,7 +33,7 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <div class="btn btn-warning" (click)="editAnimal(animal)">Modifier</div>
+                    <a [routerLink]="['/admin-animaux-form', animal.id]" style="text-decoration: none"><div class="btn btn-warning" >Modifier</div></a>
                     <div class="btn btn-danger" (click)="deleteAnimal(animal)">Supprimer</div>
                 </div>
             </td>
