@@ -26,6 +26,7 @@ export class ConnexionComponent implements OnInit {
     
     this.loginCtrl = this.formBuilder.control('admin', Validators.required);
     this.passwordCtrl = this.formBuilder.control('123456', [ Validators.required, Validators.minLength(6) ]);
+    const rememberCtrl = this.formBuilder.control(false);
     
     // this.authForm = this.formBuilder.group({
     //   login: this.formBuilder.control('Valeur par défaut', Validators.required),
@@ -34,14 +35,16 @@ export class ConnexionComponent implements OnInit {
     
     this.authForm = this.formBuilder.group({
       login: this.loginCtrl,
-      password: this.passwordCtrl
+      password: this.passwordCtrl,
+      rememberMe: rememberCtrl
     });
   }
   
   public async authenticate() {
     this.service.authenticate(new AuthRequest(
     this.authForm.value.login,
-    this.authForm.value.password
+    this.authForm.value.password,
+    this.authForm.value.rememberMe
   )).subscribe({
     next: () => this.router.navigate(['/home']),
     error: err => console.error('Erreur de connexion', err)

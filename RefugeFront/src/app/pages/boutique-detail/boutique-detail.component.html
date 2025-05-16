@@ -4,7 +4,7 @@
       <img 
         [src]="'data:image/*;base64,' + produit.imageBase64" 
         class="card-img-top rounded" 
-        alt="{{ produit.libelle }}" 
+        [alt]="produit.libelle" 
         style="height: 300px; object-fit: cover;"
       >
     </div>

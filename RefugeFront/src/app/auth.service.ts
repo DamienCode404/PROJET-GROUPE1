@@ -28,8 +28,13 @@ export class AuthService {
       tap(resp => {
         this.token = resp.token;
         this.user = resp;
-        localStorage.setItem('token', this.token);
-        localStorage.setItem('user', JSON.stringify(this.user));
+        if (authRequest.rememberMe) {
+          localStorage.setItem('token', this.token);
+          localStorage.setItem('user', JSON.stringify(this.user));
+        } else {
+          sessionStorage.setItem('token', this.token);
+          sessionStorage.setItem('user', JSON.stringify(this.user));
+        }
       })
     );
   }
@@ -40,6 +45,8 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     localStorage.removeItem('panier');
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user');
     this.router.navigate(['/connexion']);
   }
   

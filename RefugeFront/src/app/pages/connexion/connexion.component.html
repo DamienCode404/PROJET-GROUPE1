@@ -5,36 +5,40 @@
 <div class="d-flex justify-content-center align-items-center min-vh-100 position-relative" style="z-index: 1;">
   <div class="bg-white p-5 rounded-4 shadow" style="max-width: 400px; width: 100%;">
     <h2 class="text-center mb-4">CONNEXION</h2>
-  
-      <form (ngSubmit)="authenticate()" [formGroup]="authForm">
-  
-        <div class="mb-3">
-          <label class="form-label">Nom d'utilisateur</label>
-          <input type="text" class="form-control" formControlName="login" />
-  
-          <div *ngIf="loginCtrl?.hasError('required')" class="text-danger mt-1">
-            Le nom d'utilisateur est obligatoire
-          </div>
+    
+    <form (ngSubmit)="authenticate()" [formGroup]="authForm">
+      
+      <div class="mb-3">
+        <label class="form-label">Nom d'utilisateur</label>
+        <input type="text" class="form-control" formControlName="login" />
+        
+        <div *ngIf="loginCtrl?.hasError('required')" class="text-danger mt-1">
+          Le nom d'utilisateur est obligatoire
         </div>
-  
-        <div class="mb-3">
-          <label class="form-label">Mot de passe</label>
-          <input type="password" class="form-control" formControlName="password" />
-  
-          <div *ngIf="authForm.get('password')?.hasError('required')" class="text-danger mt-1">
-            Le mot de passe est obligatoire
-          </div>
-  
-          <div *ngIf="passwordCtrl?.hasError('minlength')" class="text-danger mt-1">
-            Le mot de passe doit faire au moins 6 caractères
-          </div>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" formControlName="password" />
+        
+        <div *ngIf="authForm.get('password')?.hasError('required')" class="text-danger mt-1">
+          Le mot de passe est obligatoire
         </div>
-  
-        <div class="d-grid">
-          <input type="submit" [disabled]="authForm.invalid" class="btn btn-success" value="Se connecter" />
+        
+        <div *ngIf="passwordCtrl?.hasError('minlength')" class="text-danger mt-1">
+          Le mot de passe doit faire au moins 6 caractères
         </div>
-  
-      </form>
-    </div>
+      </div>
+      
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" formControlName="rememberMe" id="rememberMe">
+        <label class="form-check-label" for="rememberMe">Rester connecté</label>
+      </div>
+      
+      <div class="d-grid">
+        <input type="submit" [disabled]="authForm.invalid" class="btn btn-success" value="Se connecter" />
+      </div>
+      
+    </form>
   </div>
-  
+</div>
