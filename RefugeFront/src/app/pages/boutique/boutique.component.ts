@@ -47,6 +47,7 @@ export class BoutiqueComponent implements OnInit {
   }
 
   ajouterAuPanier(produit: Produit): void {
+    produit.stock -= 1; // Décrémente le stock du produit
     this.panierService.ajouter(produit);
     this.produitAjoute = true;
     setTimeout(() => {
