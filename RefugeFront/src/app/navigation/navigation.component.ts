@@ -19,13 +19,13 @@ export class NavigationComponent {
 
 
   public get role()
-{
-    return this.authService.user?.roleUser;
-}
+  {
+      return this.authService.user?.roleUser;
+  }
 
-public set role(value : string | null)
-{
-    this._role = value;
-}
+  public set role(value : string | null)
+  {
+      this._role = value;
+  }
 
 }
