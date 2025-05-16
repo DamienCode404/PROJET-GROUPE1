@@ -4,6 +4,8 @@ import { SearchBarService } from '../../search-bar/search-bar.service';
 import { Animal } from '../admin-animaux/animal';
 import { combineLatest, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+import { AuthService } from '../../auth.service';
+import { Utilisateurs } from '../admin-utilisateurs/utilisateurs';
 
 @Component({
   selector: 'app-accueil',
@@ -11,15 +13,32 @@ import { map, startWith } from 'rxjs/operators';
   standalone: false,
   styleUrls: ['./accueil.component.css']
 })
+
 export class AccueilComponent implements OnInit {
-  animaux$!: Observable<Animal[]>; // Observable de la liste filtrée d'animaux
+  animaux$!: Observable<Animal[]>;
+  recommandations$!: Observable<Animal[]>;
+  private _role : string | null = null;
+  
 
   constructor(
     private animalService: AnimalService,
-    private searchService: SearchBarService
-  ) {}
+    private searchService: SearchBarService,
+    private authService : AuthService
+  ) {if (this.authService.user) {this._role = this.authService.user.roleUser}}
 
+  public get role()
+  {
+      return this.authService.user?.roleUser;
+  }
+
+  public set role(value : string | null)
+  {
+      this._role = value;
+  }
+  
   ngOnInit(): void {
+    const user = this.authService.user;
+
     // Combine la liste des animaux et la valeur du formulaire de recherche
     this.animaux$ = combineLatest([
       this.animalService.findAll(), // Récupère tous les animaux depuis l'API
@@ -43,6 +62,14 @@ export class AccueilComponent implements OnInit {
         });
       })
     );
+    // Recommandations basées sur le tag si client
+    if (user?.roleUser === 'CLIENT' && user.tag) {
+      this.recommandations$ = this.animalService.findAll().pipe(
+        map(animaux =>
+          animaux.filter(animal => animal.tag?.toLowerCase() === user.tag.toLowerCase())
+        )
+      );
+    }
   }
 
     //Calcule l'âge de l'animal en années complètes.

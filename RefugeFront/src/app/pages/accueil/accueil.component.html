@@ -1,6 +1,15 @@
 <app-search-bar></app-search-bar>
 
 <div class="container my-5">
+  @if (role === "CLIENT") {
+    <div class="mb-5" style="background-color: yellow;">
+      <h3 class="mb-4">Recommandations</h3>
+      <app-animal-card
+        [animaux]="recommandations$ | async"
+        routerPrefix="animal">
+      </app-animal-card>
+    </div>
+  }
   <app-animal-card   
   [animaux]="animaux$ | async" 
   routePrefix="animal"></app-animal-card>
