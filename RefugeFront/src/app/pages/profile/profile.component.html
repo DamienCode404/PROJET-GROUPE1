@@ -1,0 +1,12 @@
+<div class="container mt-5">
+    <h2 class="mb-4">Profil de {{ user.firstName }} {{ user.lastName }}</h2>
+  
+    <p><strong>Email :</strong> {{ user.email }}</p>
+    <p><strong>Téléphone :</strong> {{ user.phoneNumber }}</p>
+    <p><strong>Tag préféré :</strong> {{ user.tag }}</p>
+  </div>
+  
+  <div *ngIf="user.imageBase64" class="mb-4">
+    <img [src]="'data:image/jpeg;base64,' + user.imageBase64" class="rounded" style="height: 150px;" />
+  </div>
+  

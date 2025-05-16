@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccueilComponent } from './pages/accueil/accueil.component';
 import { ConnexionComponent } from './pages/connexion/connexion.component';
 import { DeconnexionComponent } from './pages/deconnexion/deconnexion.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 import { AdminAnimauxComponent } from './pages/admin-animaux/admin-animaux.component';
 import { AdminBoutiqueComponent } from './pages/admin-boutique/admin-boutique.component';
@@ -40,7 +41,9 @@ const routes: Routes = [
   { path: 'inscription', component: InscriptionComponent },
   { path: 'panier', component: PanierComponent },
   { path: 'produit/:id', component: BoutiqueDetailComponent },
-  { path: 'animal/:id', component: AnimalDetailComponent }
+  { path: 'animal/:id', component: AnimalDetailComponent },
+  { path: 'profile', component: ProfileComponent }
+
 ];
 
 @NgModule({
