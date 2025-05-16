@@ -12,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Bean;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,34 +24,35 @@ import formation_sopra.Refuge.dao.IDAOAchat;
 import formation_sopra.Refuge.dao.IDAOUtilisateur;
 import formation_sopra.Refuge.model.Achat;
 import formation_sopra.Refuge.rest.AchatRestController;
-import formation_sopra.Refuge.rest.EspeceRestController;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
+import org.mockito.Mockito;
 
-
-@WebMvcTest(controllers = AchatRestController.class,
-excludeAutoConfiguration = { SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class })
+@WebMvcTest(
+    controllers = AchatRestController.class,
+    excludeAutoConfiguration = { SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class }
+)
+@Import(AchatRestControllerTest.MockDaoConfig.class)
 public class AchatRestControllerTest {
 
     @Autowired
-    private MockMvc mockMvc; // permet de simuler les appels HTTP sans serveur
+    private MockMvc mockMvc;
 
-    @MockBean
-    private IDAOAchat daoAchat; //simule le comportement du dao
+    @Autowired
+    private IDAOAchat daoAchat;
 
-    @MockBean
+    @Autowired
     private IDAOUtilisateur daoUtilisateur;
 
-    
     @Autowired
-    private ObjectMapper objectMapper; // pour la conversion JSON
+    private ObjectMapper objectMapper;
 
     private Achat achat;
 
-    @BeforeEach 
+    @BeforeEach
     public void setUp() {
         achat = new Achat(5, 20.0, LocalDate.now());
         achat.setId(1);
@@ -57,11 +60,11 @@ public class AchatRestControllerTest {
 
     @Test
     public void testGetAllAchat() throws Exception {
-        when(daoAchat.findAll()).thenReturn(List.of(achat)); //retour de la liste achat
+        when(daoAchat.findAll()).thenReturn(List.of(achat));
 
-        mockMvc.perform(get("/achat")) //envoie de la requete
-        		.andDo(print()) 
-                .andExpect(status().isOk())//verification statut + contenu
+        mockMvc.perform(get("/achat"))
+                .andDo(print())
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(1))
                 .andExpect(jsonPath("$[0].qte").value(5))
                 .andExpect(jsonPath("$[0].prix").value(20.0));
@@ -69,14 +72,28 @@ public class AchatRestControllerTest {
 
     @Test
     public void testCreateAchat() throws Exception {
-        when(daoAchat.save(any(Achat.class))).thenReturn(achat);//creation de la liste
+        when(daoAchat.save(any(Achat.class))).thenReturn(achat);
 
-        mockMvc.perform(post("/achat") 
-                .contentType(MediaType.APPLICATION_JSON) //envoie de la requete
-                .content(objectMapper.writeValueAsString(achat))) //conversion JSON
-                .andExpect(status().isOk()) //verification statut + contenu
+        mockMvc.perform(post("/achat")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(achat)))
+                .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(1))
                 .andExpect(jsonPath("$.qte").value(5))
                 .andExpect(jsonPath("$.prix").value(20.0));
+    }
+
+    @TestConfiguration
+    static class MockDaoConfig {
+
+        @Bean
+        public IDAOAchat daoAchat() {
+            return Mockito.mock(IDAOAchat.class);
+        }
+
+        @Bean
+        public IDAOUtilisateur daoUtilisateur() {
+            return Mockito.mock(IDAOUtilisateur.class);
+        }
     }
 }

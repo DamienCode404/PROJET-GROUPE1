@@ -2,23 +2,22 @@ package formation_sopra.Refuge;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -29,20 +28,25 @@ import formation_sopra.Refuge.dao.IDAOUtilisateur;
 import formation_sopra.Refuge.model.Espece;
 import formation_sopra.Refuge.rest.EspeceRestController;
 
-@WebMvcTest(controllers = EspeceRestController.class,
-excludeAutoConfiguration = { SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class })
+@WebMvcTest(
+    controllers = EspeceRestController.class,
+    excludeAutoConfiguration = { SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class }
+)
+@Import(EspeceRestControllerTest.MockDaoConfig.class)
 public class EspeceRestControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
     private IDAOEspece daoEspece;
 
     @Autowired
-    private ObjectMapper objectMapper;
-    @MockBean
     private IDAOUtilisateur daoUtilisateur;
+
     private Espece espece;
 
     @BeforeEach
@@ -124,5 +128,19 @@ public class EspeceRestControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(incoherent)))
                 .andExpect(status().isBadRequest());
+    }
+
+    @TestConfiguration
+    static class MockDaoConfig {
+
+        @Bean
+        public IDAOEspece daoEspece() {
+            return Mockito.mock(IDAOEspece.class);
+        }
+
+        @Bean
+        public IDAOUtilisateur daoUtilisateur() {
+            return Mockito.mock(IDAOUtilisateur.class);
+        }
     }
 }
