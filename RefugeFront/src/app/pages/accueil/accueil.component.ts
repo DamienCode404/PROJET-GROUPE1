@@ -77,7 +77,7 @@ export class AccueilComponent implements OnInit {
     );
   }
 
-    private filterRecommendations(client: Utilisateurs): void {
+  private filterRecommendations(client: Utilisateurs): void {
     if (this.authService.user.roleUser === 'CLIENT' && client.tag) {
       this.recommandations$ = this.animalService.findAll().pipe(
         map(animaux =>
