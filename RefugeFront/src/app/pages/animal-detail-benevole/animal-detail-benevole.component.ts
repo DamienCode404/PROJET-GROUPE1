@@ -53,5 +53,10 @@ export class AnimalDetailBenevoleComponent {
     this._animal.statut = "Reserve";
     this.service.save(this._animal).subscribe();
   }
+
+  public changeStatutAnnulation() {
+    this._animal.statut = "Disponible";
+    this.service.save(this._animal).subscribe();
+  }
   
 }

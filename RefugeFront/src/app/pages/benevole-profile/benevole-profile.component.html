@@ -9,6 +9,7 @@
   </div>
   <h2 class="text-center mb-5 fw-bold">Vos Animaux</h2>
   
+
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
     <div class="col" *ngFor="let animal of animal$ | async">
       <a [routerLink]="['/benevole', animal.id]" style="text-decoration: none">
@@ -26,6 +27,20 @@
           
           <div class="card-body d-flex flex-column p-4">
             <h5 class="card-title text-center fw-bold">{{ animal.nom }}</h5>
+            
+            <div class="text-center mb-2">
+              <span class="badge" 
+                    [ngClass]="{
+                      'bg-success': animal.statut === 'Disponible',
+                      'bg-warning': animal.statut === 'PremierContact',
+                      'bg-secondary': animal.statut === 'Reserve'
+                    }">
+                {{ animal.statut }}
+              </span>
+            </div>
+            
+
+
             <h6 class="text-center text-primary mb-3">{{ animal.race }}</h6>
             
             <div class="mb-2 text-center">
@@ -46,4 +61,11 @@
       </a>
     </div>
   </div>
+  
+  <app-animal-card 
+  [animaux]="animal$ | async" 
+  routePrefix="benevole">
+  </app-animal-card>
+  
+
 </div>
