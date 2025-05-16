@@ -18,30 +18,32 @@ import { UtilisateursService } from '../admin-utilisateurs/utilisateurs.service'
 export class AccueilComponent implements OnInit {
   animaux$!: Observable<Animal[]>;
   recommandations$!: Observable<Animal[]>;
-  private _role : string | null = null;
-  private _id:number;
+  animauxDisponibles$!: Observable<Animal[]>;
+  animauxReserves$!: Observable<Animal[]>;
+  animauxAdoptes$!: Observable<Animal[]>;
+  private _role: string | null = null;
+  private _id: number;
   tagClient: string | null = null;
+  selectedView: string = 'recommandations'; // Default view
 
   constructor(
     private animalService: AnimalService,
     private searchService: SearchBarService,
-    private authService : AuthService,
+    private authService: AuthService,
     private utilisateursService: UtilisateursService
   ) {
     this._id = authService.user.idUser;
-    if (this.authService.user) {this._role = this.authService.user.roleUser}
+    if (this.authService.user) { this._role = this.authService.user.roleUser; }
   }
 
-  public get role()
-  {
-      return this.authService.user?.roleUser;
+  public get role() {
+    return this.authService.user?.roleUser;
   }
 
-  public set role(value : string | null)
-  {
-      this._role = value;
+  public set role(value: string | null) {
+    this._role = value;
   }
-  
+
   ngOnInit(): void {
     if (this.authService.user.roleUser === "CLIENT") {
       this.utilisateursService.findById(this.authService.user.idUser).subscribe(client => {
@@ -51,37 +53,22 @@ export class AccueilComponent implements OnInit {
     } else {
       this.recommandations$ = of([]); // Default empty observable if no recommendations
     }
-    
-    // Combine la liste des animaux et la valeur du formulaire de recherche
-    this.animaux$ = combineLatest([
-      this.animalService.findAll(), // Récupère tous les animaux depuis l'API
-      this.searchService.search$.pipe(
-        startWith({ search: '', ageFilter: '' }) // Au début, aucun filtre appliqué
-      )
-    ]).pipe(
-      map(([animaux, { search, ageFilter }]) => {
-        const term = (search || '').trim().toLowerCase(); // Nettoie le texte recherché
 
-        // filtre le texte + l'âge 
-        return animaux.filter(animal => {
-          const matchText = !term ||
-            animal.nom.toLowerCase().includes(term) ||
-            animal.race.toLowerCase().includes(term);
-
-          const age = this.calculateAge(animal.naissance); // Calcule l'âge de l'animal
-          const matchAge = this.matchAge(age, ageFilter);  // Vérifie si l'âge correspond au filtre choisi
-
-          return matchText && matchAge; // Retourne seulement si l'animal passe les 2 filtres
-        });
-      })
-    );
+    // Fetch all animals and filter them based on status, search, and age filter
+    this.animaux$ = this.filterAnimauxBySearchAndAge();
+    this.animauxDisponibles$ = this.filterAnimauxByStatusAndSearchAndAge('Disponible');
+    this.animauxReserves$ = this.filterAnimauxByStatusAndSearchAndAge('Reserve');
+    this.animauxAdoptes$ = this.filterAnimauxByStatusAndSearchAndAge('Adopte');
   }
 
   private filterRecommendations(client: Utilisateurs): void {
     if (this.authService.user.roleUser === 'CLIENT' && client.tag) {
       this.recommandations$ = this.animalService.findAll().pipe(
         map(animaux =>
-          animaux.filter(animal => animal.tag?.toLowerCase() === client.tag?.toLowerCase())
+          animaux.filter(animal =>
+            animal.tag?.toLowerCase() === client.tag?.toLowerCase() &&
+            animal.statut === 'Disponible'
+          )
         )
       );
     } else {
@@ -89,9 +76,57 @@ export class AccueilComponent implements OnInit {
     }
   }
 
-    //Calcule l'âge de l'animal en années complètes.
-    //@param birthDateString date de naissance de l'animal
- 
+  private filterAnimauxBySearchAndAge(): Observable<Animal[]> {
+    return combineLatest([
+      this.animalService.findAll(),
+      this.searchService.search$.pipe(
+        startWith({ search: '', ageFilter: '' })
+      )
+    ]).pipe(
+      map(([animaux, { search, ageFilter }]) => {
+        const term = (search || '').trim().toLowerCase();
+        return animaux.filter(animal => {
+          const matchText = !term ||
+            animal.nom.toLowerCase().includes(term) ||
+            animal.race.toLowerCase().includes(term);
+
+          const age = this.calculateAge(animal.naissance);
+          const matchAge = this.matchAge(age, ageFilter);
+
+          return matchText && matchAge;
+        });
+      })
+    );
+  }
+
+  private filterAnimauxByStatusAndSearchAndAge(status: string): Observable<Animal[]> {
+    return combineLatest([
+      this.animalService.findAll(),
+      this.searchService.search$.pipe(
+        startWith({ search: '', ageFilter: '' })
+      )
+    ]).pipe(
+      map(([animaux, { search, ageFilter }]) => {
+        const term = (search || '').trim().toLowerCase();
+        return animaux.filter(animal => {
+          const matchText = !term ||
+            animal.nom.toLowerCase().includes(term) ||
+            animal.race.toLowerCase().includes(term);
+
+          const age = this.calculateAge(animal.naissance);
+          const matchAge = this.matchAge(age, ageFilter);
+
+          const matchStatus = animal.statut === status ||
+            (status === 'Disponible' && animal.statut === 'PremierContact');
+
+          return matchText && matchAge && matchStatus;
+        });
+      })
+    );
+  }
+
+  // Calcule l'âge de l'animal en années complètes.
+  // @param birthDateString date de naissance de l'animal
   private calculateAge(birthDateString: string): number {
     const birthDate = new Date(birthDateString);
     const today = new Date();
@@ -106,9 +141,8 @@ export class AccueilComponent implements OnInit {
     return age;
   }
 
-    // @param age âge de l'animal
-   // @param filter valeur du filtre d'âge sélectionné
-  
+  // @param age âge de l'animal
+  // @param filter valeur du filtre d'âge sélectionné
   private matchAge(age: number, filter: string): boolean {
     switch (filter) {
       case '0-1':
