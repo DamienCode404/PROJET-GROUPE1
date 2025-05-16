@@ -12,4 +12,16 @@ import { Animal } from '../admin-animaux/animal';
 export class AnimalCardComponent {
   @Input() animaux: Animal[] | null = null;
   @Input() routePrefix: string = 'animal';
+
+  getPlaceholderImage(): string {
+    const placeholders = [
+      'placeholder--cat.png',
+      'placeholder--dog.png',
+      'placeholder.png'
+    ];
+
+    // Generate a random index to select a placeholder
+    const randomIndex = Math.floor(Math.random() * placeholders.length);
+    return placeholders[randomIndex];
+  }
 }
