@@ -2,6 +2,7 @@ package formation_sopra.Refuge;
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,6 +32,12 @@ class RefugeApplicationTests {
 	private IDAOProduit daoProduit;
 	@Autowired
 	private IDAOUtilisateur daoUtilisateur;
+	
+    @BeforeEach
+    void cleanUp() {
+        // Supprime tous les utilisateurs avant chaque test sinon ça ne marche pas car doublon des utilisateurs
+        daoUtilisateur.deleteAll();
+    }
     
     @Test
     void testInsertAnimal() {

@@ -9,6 +9,7 @@
   </div>
   <h2 class="text-center mb-5 fw-bold">Vos Animaux</h2>
   
+
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
     <div class="col" *ngFor="let animal of animal$ | async">
       <a [routerLink]="['/benevole', animal.id]" style="text-decoration: none">
@@ -60,4 +61,11 @@
       </a>
     </div>
   </div>
+  
+  <app-animal-card 
+  [animaux]="animal$ | async" 
+  routePrefix="benevole">
+  </app-animal-card>
+  
+
 </div>

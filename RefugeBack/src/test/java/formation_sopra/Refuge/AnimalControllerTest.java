@@ -36,7 +36,7 @@ public class AnimalControllerTest {
     }
     
     @Test
-    public void okPourCreerUnAnimal() throws Exception {
+    void okPourCreerUnAnimal() throws Exception {
     	// On créé un animal
     	AnimalRequest animalRequest = new AnimalRequest();
     	animalRequest.setNom("Rex");
