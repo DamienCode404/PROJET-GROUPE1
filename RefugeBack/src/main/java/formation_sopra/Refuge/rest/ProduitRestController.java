@@ -37,8 +37,6 @@ public class ProduitRestController {
 	public List<ProduitResponse> getAll() {
 		List<Produit> produits = this.produitService.findAll();
 		
-		System.out.println(produits);
-
 		return produits.stream().map(ProduitResponse::convert).toList();
 	}
 
