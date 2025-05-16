@@ -19,7 +19,7 @@ import formation_sopra.Refuge.model.Utilisateur;
 import formation_sopra.Refuge.model.Worker;
 
 
-class RefugeApplicationTests {
+class RefugeApplicationSeed {
 
 	@Autowired
 	private IDAOAnimal daoAnimal;
