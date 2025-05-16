@@ -30,6 +30,7 @@ import { AnimalDetailBenevoleComponent } from './pages/animal-detail-benevole/an
 import { AdminAnimauxFormComponent } from './pages/admin-animaux-form/admin-animaux-form.component';
 import { AdminBoutiqueFormComponent } from './pages/admin-boutique-form/admin-boutique-form.component';
 import { AdminUtilisateursFormComponent } from './pages/admin-utilisateurs-form/admin-utilisateurs-form.component';
+import { AnimalCardComponent } from './pages/animal-card/animal-card.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { AdminUtilisateursFormComponent } from './pages/admin-utilisateurs-form/
       AnimalDetailBenevoleComponent,
       AdminAnimauxFormComponent,
       AdminBoutiqueFormComponent,
-      AdminUtilisateursFormComponent
+      AdminUtilisateursFormComponent,
+      AnimalCardComponent
 
   ],
   imports: [
