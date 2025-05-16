@@ -1,4 +1,4 @@
-package formation_sopra.Refuge;
+package formation_sopra.Refuge.seed;
 
 import java.time.LocalDate;
 
