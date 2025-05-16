@@ -2,7 +2,6 @@ package formation_sopra.Refuge.seed;
 
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import formation_sopra.Refuge.dao.IDAOAnimal;
