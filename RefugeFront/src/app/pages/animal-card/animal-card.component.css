@@ -1,5 +1,5 @@
 .hover-zoom {
-  transition: transform 0.4s ease; /* Ajoute une transition fluide */
+  transition: transform 0.4s ease; /* Smooth transition */
 }
 
 .hover-zoom:hover {
@@ -12,14 +12,24 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.60);
+  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   z-index: 10;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
 }
 
 .card:hover .overlay-description {
   opacity: 1;
   pointer-events: auto;
+}
+
+.card-body {
+  position: relative;
+  z-index: 1;
 }
