@@ -9,6 +9,8 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -17,8 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import formation_sopra.Refuge.dao.IDAOAchat;
+import formation_sopra.Refuge.dao.IDAOUtilisateur;
 import formation_sopra.Refuge.model.Achat;
 import formation_sopra.Refuge.rest.AchatRestController;
+import formation_sopra.Refuge.rest.EspeceRestController;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -26,7 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 
 
-@WebMvcTest(AchatRestController.class) // lance uniquement le test du controleur
+@WebMvcTest(controllers = AchatRestController.class,
+excludeAutoConfiguration = { SecurityAutoConfiguration.class, SecurityFilterAutoConfiguration.class })
 public class AchatRestControllerTest {
 
     @Autowired
@@ -35,6 +40,10 @@ public class AchatRestControllerTest {
     @MockBean
     private IDAOAchat daoAchat; //simule le comportement du dao
 
+    @MockBean
+    private IDAOUtilisateur daoUtilisateur;
+
+    
     @Autowired
     private ObjectMapper objectMapper; // pour la conversion JSON
 
