@@ -3,7 +3,6 @@ package formation_sopra.Refuge;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import formation_sopra.Refuge.model.Statut;
 import formation_sopra.Refuge.rest.request.AnimalRequest;
 @SpringBootTest
 @AutoConfigureMockMvc
