@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AnimalService } from '../admin-animaux/animal.service';
 import { SearchBarService } from '../../search-bar/search-bar.service';
 import { Animal } from '../admin-animaux/animal';
-import { combineLatest, Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { combineLatest, Observable, of } from 'rxjs';
+import { map, startWith, switchMap } from 'rxjs/operators';
 import { AuthService } from '../../auth.service';
 import { Utilisateurs } from '../admin-utilisateurs/utilisateurs';
+import { UtilisateursService } from '../admin-utilisateurs/utilisateurs.service';
 
 @Component({
   selector: 'app-accueil',
@@ -18,13 +19,18 @@ export class AccueilComponent implements OnInit {
   animaux$!: Observable<Animal[]>;
   recommandations$!: Observable<Animal[]>;
   private _role : string | null = null;
-  
+  private _id:number;
+  tagClient: string | null = null;
 
   constructor(
     private animalService: AnimalService,
     private searchService: SearchBarService,
-    private authService : AuthService
-  ) {if (this.authService.user) {this._role = this.authService.user.roleUser}}
+    private authService : AuthService,
+    private utilisateursService: UtilisateursService
+  ) {
+    this._id = authService.user.idUser;
+    if (this.authService.user) {this._role = this.authService.user.roleUser}
+  }
 
   public get role()
   {
@@ -37,8 +43,15 @@ export class AccueilComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    const user = this.authService.user;
-
+    if (this.authService.user.roleUser === "CLIENT") {
+      this.utilisateursService.findById(this.authService.user.idUser).subscribe(client => {
+        this.tagClient = client.tag;
+        this.filterRecommendations(client);
+      });
+    } else {
+      this.recommandations$ = of([]); // Default empty observable if no recommendations
+    }
+    
     // Combine la liste des animaux et la valeur du formulaire de recherche
     this.animaux$ = combineLatest([
       this.animalService.findAll(), // Récupère tous les animaux depuis l'API
@@ -62,13 +75,17 @@ export class AccueilComponent implements OnInit {
         });
       })
     );
-    // Recommandations basées sur le tag si client
-    if (user?.roleUser === 'CLIENT' && user.tag) {
+  }
+
+    private filterRecommendations(client: Utilisateurs): void {
+    if (this.authService.user.roleUser === 'CLIENT' && client.tag) {
       this.recommandations$ = this.animalService.findAll().pipe(
         map(animaux =>
-          animaux.filter(animal => animal.tag?.toLowerCase() === user.tag.toLowerCase())
+          animaux.filter(animal => animal.tag?.toLowerCase() === client.tag?.toLowerCase())
         )
       );
+    } else {
+      this.recommandations$ = of([]); // Default empty observable if no recommendations
     }
   }
 
