@@ -26,6 +26,20 @@
           
           <div class="card-body d-flex flex-column p-4">
             <h5 class="card-title text-center fw-bold">{{ animal.nom }}</h5>
+            
+            <div class="text-center mb-2">
+              <span class="badge" 
+                    [ngClass]="{
+                      'bg-success': animal.statut === 'Disponible',
+                      'bg-warning': animal.statut === 'PremierContact',
+                      'bg-secondary': animal.statut === 'Reserve'
+                    }">
+                {{ animal.statut }}
+              </span>
+            </div>
+            
+
+
             <h6 class="text-center text-primary mb-3">{{ animal.race }}</h6>
             
             <div class="mb-2 text-center">
