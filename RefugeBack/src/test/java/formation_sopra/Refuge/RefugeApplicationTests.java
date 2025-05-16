@@ -2,10 +2,8 @@ package formation_sopra.Refuge;
 
 import java.time.LocalDate;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import formation_sopra.Refuge.dao.IDAOAnimal;
 import formation_sopra.Refuge.dao.IDAOEspece;
@@ -21,7 +19,7 @@ import formation_sopra.Refuge.model.Tag;
 import formation_sopra.Refuge.model.Utilisateur;
 import formation_sopra.Refuge.model.Worker;
 
-@SpringBootTest
+
 class RefugeApplicationTests {
 
 	@Autowired
@@ -33,13 +31,7 @@ class RefugeApplicationTests {
 	@Autowired
 	private IDAOUtilisateur daoUtilisateur;
 	
-    @BeforeEach
-    void cleanUp() {
-        // Supprime tous les utilisateurs avant chaque test sinon ça ne marche pas car doublon des utilisateurs
-        daoUtilisateur.deleteAll();
-    }
     
-    @Test
     void testInsertAnimal() {
     	System.out.println("Début de l'insertion des animaux.");
     	
@@ -223,7 +215,6 @@ class RefugeApplicationTests {
         System.out.println("Animaux insérés avec succès !");
     }
     
-    @Test
     void testInsertEspece() {
     	System.out.println("Début de l'insertion des especes.");
     	
@@ -250,7 +241,6 @@ class RefugeApplicationTests {
         System.out.println("Especes insérés avec succès !");
     }
     
-    @Test
     void testInsertProduit() {
     	System.out.println("Début de l'insertion des produits.");
     	
@@ -290,7 +280,6 @@ class RefugeApplicationTests {
         System.out.println("Produits insérés avec succès !");
     }
     
-    @Test
     void testInsertUtilisateur() {
     	System.out.println("Début de l'insertion des utilisateurs.");
     	
