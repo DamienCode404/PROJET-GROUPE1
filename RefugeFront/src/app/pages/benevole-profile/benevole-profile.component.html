@@ -38,9 +38,8 @@
               {{ animal.description }}
             </p>
             
-            <div class="mt-auto text-center">
-              <span class="badge bg-secondary m-3"> tag1 </span>
-              <span class="badge bg-secondary m-3"> tag2 </span>
+            <div *ngIf="animal.tag != null" class="mt-auto text-center">
+              <span class="badge bg-secondary m-3"> {{ animal.tag }} </span>
             </div>
           </div>
         </div>

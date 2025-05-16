@@ -26,7 +26,7 @@ export class AnimalDetailComponent {
       const id = params['id'];
       this.service.findById(id).subscribe({
         next: animal => this._animal = animal,
-        error: () => this._animal = new Animal(0,'_nom: string', '_race: string', '_naissance: string', '_description: string', '_statut: string', 0, '_imageBase64: string')
+        error: () => this._animal = new Animal(0,'_nom: string', '_race: string', '_naissance: string', '_description: string', '_statut: string', 0, '_imageBase64: string','_tag: string|null')
       });
     });
   }

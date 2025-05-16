@@ -10,7 +10,8 @@ export class Animal {
         private _description: string, 
         private _statut: string, 
         private _idWorker : number|null, 
-        private _imageBase64: string
+        private _imageBase64: string,
+        private _tag: string|null
     ) {}
 
 public get imageBase64(): string {
@@ -88,6 +89,16 @@ public get idWorker()
 public set idWorker(value : number|null)
 {
     this._idWorker = value;
+}
+
+public get tag()
+{
+    return this._tag;
+}
+
+public set tag(value : string|null)
+{
+    this._tag = value;
 }
 
 }
