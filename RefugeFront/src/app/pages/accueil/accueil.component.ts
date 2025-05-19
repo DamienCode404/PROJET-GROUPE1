@@ -22,7 +22,7 @@ export class AccueilComponent implements OnInit {
   animauxReserves$!: Observable<Animal[]>;
   animauxAdoptes$!: Observable<Animal[]>;
   private _role: string | null = null;
-  private _id: number;
+  private _id!: number;
   tagClient: string | null = null;
   selectedView: string = 'recommandations'; // Default view
 
@@ -32,8 +32,10 @@ export class AccueilComponent implements OnInit {
     private authService: AuthService,
     private utilisateursService: UtilisateursService
   ) {
-    this._id = authService.user.idUser;
-    if (this.authService.user) { this._role = this.authService.user.roleUser; }
+    if (this.authService.user != null) {
+      this._id = authService.user.idUser;
+      this._role = this.authService.user.roleUser
+    }
   }
 
   public get role() {
@@ -45,13 +47,13 @@ export class AccueilComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.user.roleUser === "CLIENT") {
+    if (this.authService.user != null && this.authService.user.roleUser === "CLIENT") {
       this.utilisateursService.findById(this.authService.user.idUser).subscribe(client => {
         this.tagClient = client.tag;
         this.filterRecommendations(client);
       });
     } else {
-      this.recommandations$ = of([]); // Default empty observable if no recommendations
+      this.selectedView = 'disponibles';
     }
 
     // Fetch all animals and filter them based on status, search, and age filter

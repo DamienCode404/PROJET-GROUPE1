@@ -16,8 +16,15 @@ export class AuthService {
   private API_URL: string = `${ environment.API_URL }/connexion`;
   
   constructor(private http: HttpClient, private router: Router) {
-    this.token = localStorage.getItem('token') as string || sessionStorage.getItem('token') as string;
-    this.user = JSON.parse(localStorage.getItem('user') as string) as any || JSON.parse(sessionStorage.getItem('user') as string) as any;
+    if (sessionStorage.getItem('token') != null) {
+      this.token = sessionStorage.getItem('token') as string;
+      this.user = JSON.parse(sessionStorage.getItem('user') as string) as any;
+    }
+
+    if (localStorage.getItem('token') != null) {
+      this.token = localStorage.getItem('token') as string;
+    this.user = JSON.parse(localStorage.getItem('user') as string) as any;
+    }
   }
   
   public authenticate(authRequest: AuthRequest) {

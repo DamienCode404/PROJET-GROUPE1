@@ -10,63 +10,64 @@
       <option value="adoptes">Adoptés</option>
     </select>
   </div>
-
+  
   <!-- Recommandations View -->
   <div *ngIf="selectedView === 'recommandations'" class="mb-5 recommendation-section">
     <h3 class="mb-4">Recommandations animaux disponibles : {{ tagClient }}</h3>
     <div *ngIf="(recommandations$ | async)?.length ?? 0 > 0; else noRecommendations">
       <app-animal-card
-        [animaux]="recommandations$ | async"
-        routerPrefix="animal">
-      </app-animal-card>
-    </div>
-
-    <ng-template #noRecommendations>
-      <p class="text-center">Aucun animal disponible ne correspond à vos préférences.</p>
-    </ng-template>
+      [animaux]="recommandations$ | async"
+      routerPrefix="animal">
+    </app-animal-card>
   </div>
+  
+  <ng-template #noRecommendations>
+    <p class="text-center">Aucun animal disponible ne correspond à vos préférences.</p>
+  </ng-template>
+</div>
 
-  <!-- Disponibles View -->
-  <div *ngIf="selectedView === 'disponibles'" class="mb-5">
-    <h3 class="mb-4">Animaux Disponibles</h3>
-    <div *ngIf="(recommandations$ | async)?.length ?? 0 > 0; else noDisponible">
-        <app-animal-card
-          [animaux]="animauxDisponibles$ | async"
-          routerPrefix="animal">
-      </app-animal-card>
-    </div>
+<!-- Disponibles View -->
+<div *ngIf="selectedView === 'disponibles'" class="mb-5">
+  <h3 class="mb-4">Animaux Disponibles</h3>
+  <div *ngIf="(animauxDisponibles$ | async)?.length ?? 0 > 0; else noDisponible">
+    <app-animal-card
+    [animaux]="animauxDisponibles$ | async"
+    routerPrefix="animal">
+  </app-animal-card>
+</div>
 
-    <ng-template #noDisponible>
-      <p class="text-center">Aucun animal disponible.</p>
-    </ng-template>
-  </div>
+<ng-template #noDisponible>
+  <p class="text-center">Aucun animal disponible.</p>
+</ng-template>
+</div>
 
-  <!-- Réservés View -->
-  <div *ngIf="selectedView === 'reserves'" class="mb-5">
-    <h3 class="mb-4">Animaux Réservés</h3>
-    <div *ngIf="(recommandations$ | async)?.length ?? 0 > 0; else noReserve">
-      <app-animal-card
-        [animaux]="animauxReserves$ | async"
-        routerPrefix="animal">
-      </app-animal-card>
-    </div>
+<!-- Réservés View -->
+<div *ngIf="selectedView === 'reserves'" class="mb-5">
+  <h3 class="mb-4">Animaux Réservés</h3>
+  <div *ngIf="(animauxReserves$ | async)?.length ?? 0 > 0; else noReserve">
+    <app-animal-card
+    [animaux]="animauxReserves$ | async"
+    routerPrefix="animal">
+  </app-animal-card>
+</div>
 
-    <ng-template #noReserve>
-      <p class="text-center">Aucun animal reserve.</p>
-    </ng-template>
-  </div>
+<ng-template #noReserve>
+  <p class="text-center">Aucun animal reserve.</p>
+</ng-template>
+</div>
 
-  <!-- Adoptés View -->
-  <div *ngIf="selectedView === 'adoptes'" class="mb-5">
-    <h3 class="mb-4">Animaux Adoptés</h3>
-    <div *ngIf="(recommandations$ | async)?.length ?? 0 > 0; else noAdopte">
-      <app-animal-card
-        [animaux]="animauxAdoptes$ | async"
-        routerPrefix="animal">
-      </app-animal-card>
-    </div>
-    <ng-template #noAdopte>
-      <p class="text-center">Aucun animal adopté.</p>
-    </ng-template>
-  </div>
+<!-- Adoptés View -->
+<div *ngIf="selectedView === 'adoptes'" class="mb-5">
+  <h3 class="mb-4">Animaux Adoptés</h3>
+  <div *ngIf="(animauxAdoptes$ | async)?.length ?? 0 > 0; else noAdopte">
+    <app-animal-card
+    [animaux]="animauxAdoptes$ | async"
+    routerPrefix="animal">
+  </app-animal-card>
+</div>
+<ng-template #noAdopte>
+  <p class="text-center">Aucun animal adopté.</p>
+</ng-template>
+</div>
+
 </div>
