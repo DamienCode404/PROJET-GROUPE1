@@ -121,9 +121,9 @@ export class AdminUtilisateursFormComponent implements OnInit, OnDestroy {
       }).subscribe({next:() => {this.service.refresh(); this.router.navigate(['/admin-utilisateurs'])}, error: (err) => {
         const message = err.error?.message;
         if (err.status === 400 && message?.includes('login')) {
-          
-        } else {
           alert('Login déja utilisé');
+        } else {
+          
     }}});
       
       

@@ -54,6 +54,14 @@
         </div>
       </div>
 
+      <div class="mb-3">
+        <label class="form-label">Tag</label>
+        <select formControlName="tag" class="form-control">
+            <option value="">-- Sélectionner un tag --</option>
+            <option *ngFor="let tag of tagsList" [value]="tag">{{ tag }}</option>
+        </select>
+    </div>
+
       <div class="form-check mb-4">
         <input class="form-check-input" type="checkbox" id="terms" required>
         <label class="form-check-label" for="terms">

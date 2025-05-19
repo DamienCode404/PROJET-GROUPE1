@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { InscriptionService } from './inscription.service';
 import { Client } from './client';
+import { AuthService } from '../../auth.service';
+import { AuthRequest } from '../../auth-request';
 
 @Component({
   selector: 'app-inscription',
@@ -14,10 +16,36 @@ import { Client } from './client';
 export class InscriptionComponent implements OnInit {
   inscriptionForm!: FormGroup;
 
+  tagsList: string[] = [
+    'Calme',
+    'Énergique',
+    'Sportif',
+    'Câlin',
+    'Sociable',
+    'Indépendant',
+    'Joueur',
+    'Protecteur',
+    'Curieux',
+    'Affectueux',
+    'Timide',
+    'Peureux',
+    'Docile',
+    'Intelligent',
+    'Gourmand',
+    'Obéissant',
+    'AdapteAuxEnfants',
+    'AdapteAuxChats',
+    'AdapteAuxChiens',
+    'BesoinEspace',
+    'CompatibleAppartement',
+    'LOF'
+  ];
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private inscriptionService: InscriptionService
+    private inscriptionService: InscriptionService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -30,7 +58,8 @@ export class InscriptionComponent implements OnInit {
       numero: [''],
       voie: [''],
       ville: [''],
-      cp: ['']
+      cp: [''],
+      tag: ['']
     });
   }
 
@@ -41,7 +70,13 @@ export class InscriptionComponent implements OnInit {
       this.inscriptionService.inscrire(client).subscribe({
         next: (res: Client) => {
           console.log('Inscription réussie', res);
-          this.router.navigate(['/connexion']);
+          this.authService.authenticate(new AuthRequest(
+              res.login,
+              res.password,
+              false
+            )).subscribe({
+              next: () => this.router.navigate(['/home'])
+            });
         },
         error: (err: any) => {
           console.error(' Erreur lors de l\'inscription', err);

@@ -4,6 +4,7 @@ export class Client {
       private _firstName: string,
       private _lastName: string ,
       private _email: string ,
+      private _login: string ,
       private _password: string ,
       private _numero: string,
       private _voie: string,
@@ -49,6 +50,14 @@ export class Client {
   
     public set email(value: string) {
       this._email = value;
+    }
+
+    public get login(): string {
+      return this._login;
+    }
+  
+    public set login(value: string) {
+      this._login = value;
     }
   
     public get password(): string {
