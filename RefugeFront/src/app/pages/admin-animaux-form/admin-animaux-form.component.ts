@@ -15,6 +15,32 @@ export class AdminAnimauxFormComponent implements OnInit, OnDestroy {
   editingAnimal!: Animal|null;
   subscriptions: any = [];
   
+  // Liste de tous les tags disponibles
+  tagsList: string[] = [
+    'Calme',
+    'Énergique',
+    'Sportif',
+    'Câlin',
+    'Sociable',
+    'Indépendant',
+    'Joueur',
+    'Protecteur',
+    'Curieux',
+    'Affectueux',
+    'Timide',
+    'Peureux',
+    'Docile',
+    'Intelligent',
+    'Gourmand',
+    'Obéissant',
+    'AdapteAuxEnfants',
+    'AdapteAuxChats',
+    'AdapteAuxChiens',
+    'BesoinEspace',
+    'CompatibleAppartement',
+    'LOF'
+  ];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -33,7 +59,8 @@ export class AdminAnimauxFormComponent implements OnInit, OnDestroy {
         naissance: ['', Validators.required],
         description: ['', Validators.required],
         statut: ['', Validators.required],
-        imageBase64: ['']
+        imageBase64: [''],
+        tag: ['']
       });
 
       if (id==0) {return}
@@ -46,7 +73,9 @@ export class AdminAnimauxFormComponent implements OnInit, OnDestroy {
           this.animalForm.get('race')?.setValue(animal.race);
           this.animalForm.get('naissance')?.setValue(animal.naissance);
           this.animalForm.get('imageBase64')?.setValue(animal.imageBase64);
-          this.animalForm.get('statut')?.setValue(animal.statut);},
+          this.animalForm.get('statut')?.setValue(animal.statut);
+          this.animalForm.get('tag')?.setValue(animal.tag);
+        },
           error: () => this.editingAnimal = null
         });
       });

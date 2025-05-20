@@ -31,6 +31,17 @@ export class AnimalDetailComponent {
     });
   }
 
+  getPlaceholderImage(): string {
+    const placeholders = [
+      'placeholder--cat.png',
+      'placeholder--dog.png',
+      'placeholder.png'
+    ];
+    // Generate a random index to select a placeholder
+    const randomIndex = Math.floor(Math.random() * placeholders.length);
+    return placeholders[randomIndex];
+  }
+
   public get animal(): Animal {
     return this._animal;
   }

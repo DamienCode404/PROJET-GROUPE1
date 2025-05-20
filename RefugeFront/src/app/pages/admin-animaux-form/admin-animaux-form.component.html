@@ -44,6 +44,14 @@
         </select>
     </div>
     
+    <div class="mb-3">
+        <label class="form-label">Tag</label>
+        <select formControlName="tag" class="form-select">
+            <option value="">-- Sélectionner un tag --</option>
+            <option *ngFor="let tag of tagsList" [value]="tag">{{ tag }}</option>
+        </select>
+    </div>
+
     <div>
         <input (change)="onImagePicked($event)" type="file" accept="image/*" /> 
     </div>
